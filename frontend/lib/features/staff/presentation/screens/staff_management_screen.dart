@@ -1451,6 +1451,7 @@ class _StaffManagementScreenState extends State<StaffManagementScreen> {
           onChanged: (_) => setState(() => _currentPage = 0),
           decoration: InputDecoration(
             hintText: 'Search by name, email or staff ID...',
+            hintStyle: TextStyle(color: AppColors.textPrimary),
             prefixIcon: const Icon(
               Icons.search,
               color: primary,

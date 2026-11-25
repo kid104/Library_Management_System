@@ -264,13 +264,8 @@ class _LandingScreenState extends State<LandingScreen>
                               height: 1.15,
                             ),
                             children: [
-                              TextSpan(text: 'Discover. Learn. '),
-                              TextSpan(
-                                text: 'Grow.',
-                                style: TextStyle(
-                                  color: AppColors.primaryAccent,
-                                ),
-                              ),
+                              TextSpan(text: 'Discover. Learn. Grow. '),
+                              
                             ],
                           ),
                         ),
@@ -865,14 +860,14 @@ class _LandingScreenState extends State<LandingScreen>
               Text(
                 '© 2026 Library Management System. All rights reserved.',
                 style: TextStyle(
-                  color: AppColors.accentBorder,
+                  color: AppColors.adminText,
                   fontSize: 12,
                 ),
               ),
               Text(
                 'Better Readers · Stronger Communities · Brighter Futures',
                 style: TextStyle(
-                  color: AppColors.accentBorder,
+                  color: AppColors.adminText,
                   fontSize: 12,
                 ),
               ),
@@ -921,7 +916,7 @@ class _LandingScreenState extends State<LandingScreen>
           'Discover books, build knowledge, and make reading part '
           'of your everyday journey. Your next great read starts here.',
           style: TextStyle(
-            color: AppColors.accentBorder,
+            color: AppColors.adminText,
             fontSize: 13,
             height: 1.6,
           ),
@@ -1038,7 +1033,7 @@ class _LandingScreenState extends State<LandingScreen>
               child: Text(
                 settings.schoolEmail,
                 style: TextStyle(
-                  color: AppColors.accentBorder,
+                  color: AppColors.adminText,
                   fontSize: 13,
                 ),
               ),
@@ -1059,7 +1054,7 @@ class _LandingScreenState extends State<LandingScreen>
               child: Text(
                 settings.schoolLocation,
                 style: TextStyle(
-                  color: AppColors.accentBorder,
+                  color: AppColors.adminText,
                   fontSize: 13,
                   height: 1.5,
                 ),
@@ -1275,8 +1270,8 @@ class _LandingScreenState extends State<LandingScreen>
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
                             color: isAvailable
-                                ? const Color(0xFF047857)
-                                : const Color(0xFFB45309),
+                                ? const Color.fromARGB(255, 74, 220, 179)
+                                : const Color.fromARGB(255, 232, 47, 10),
                           ),
                         ),
                       ),

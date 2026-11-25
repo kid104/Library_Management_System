@@ -124,7 +124,9 @@ class _MainShellState extends State<MainShell> {
       context: context,
       builder: (dialogContext) {
         return AlertDialog(
-          title: const Text('Change Password'),
+          title:  Text('Change Password'),
+          titleTextStyle: TextStyle(color: AppColors.password),
+          backgroundColor: AppColors.primary,
           content: SizedBox(
             width: 420,
             child: Column(
@@ -133,19 +135,19 @@ class _MainShellState extends State<MainShell> {
                 TextField(
                   controller: controllerCurrent,
                   obscureText: !showCurrent,
-                  decoration: InputDecoration(labelText: 'Current Password', border: const OutlineInputBorder(), suffixIcon: IconButton(icon: Icon(showCurrent ? Icons.visibility_off : Icons.visibility), onPressed: () { showCurrent = !showCurrent; (dialogContext as Element).markNeedsBuild(); })),
+                  decoration: InputDecoration(labelText: 'Current Password',labelStyle: TextStyle(color: AppColors.password), border: const OutlineInputBorder(), suffixIcon: IconButton(icon: Icon(showCurrent ? Icons.visibility_off : Icons.visibility),color: AppColors.password, onPressed: () { showCurrent = !showCurrent; (dialogContext as Element).markNeedsBuild(); })),
                 ),
                 const SizedBox(height: 12),
                 TextField(
                   controller: controllerNew,
                   obscureText: !showNew,
-                  decoration: InputDecoration(labelText: 'New Password', border: const OutlineInputBorder(), suffixIcon: IconButton(icon: Icon(showNew ? Icons.visibility_off : Icons.visibility), onPressed: () { showNew = !showNew; (dialogContext as Element).markNeedsBuild(); })),
+                  decoration: InputDecoration(labelText: 'New Password',labelStyle: TextStyle(color: AppColors.password), border: const OutlineInputBorder(), suffixIcon: IconButton(icon: Icon(showNew ? Icons.visibility_off : Icons.visibility), color: AppColors.password,onPressed: () { showNew = !showNew; (dialogContext as Element).markNeedsBuild(); })),
                 ),
                 const SizedBox(height: 12),
                 TextField(
                   controller: controllerConfirm,
                   obscureText: !showConfirm,
-                  decoration: InputDecoration(labelText: 'Confirm New Password', border: const OutlineInputBorder(), suffixIcon: IconButton(icon: Icon(showConfirm ? Icons.visibility_off : Icons.visibility), onPressed: () { showConfirm = !showConfirm; (dialogContext as Element).markNeedsBuild(); })),
+                  decoration: InputDecoration(labelText: 'Confirm New Password',labelStyle: TextStyle(color: AppColors.password), border: const OutlineInputBorder(), suffixIcon: IconButton(icon: Icon(showConfirm ? Icons.visibility_off : Icons.visibility), color: AppColors.password, onPressed: () { showConfirm = !showConfirm; (dialogContext as Element).markNeedsBuild(); })),
                 ),
               ],
             ),

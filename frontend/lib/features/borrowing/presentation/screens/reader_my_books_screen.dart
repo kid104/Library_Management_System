@@ -375,7 +375,7 @@ Widget _buildHistoryCard(BorrowRecord book) {
     child: Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFFFAFAFA),
+        color: AppColors.primary,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: AppColors.neutralBorder,

@@ -359,10 +359,25 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
                           if (_selectedLogoName != null)
                             Expanded(child: Text('Selected: $_selectedLogoName', overflow: TextOverflow.ellipsis)) ,
                           OutlinedButton.icon(
-                            onPressed: _isUploadingLogo ? null : _pickAndUploadLogo,
-                            icon: _isUploadingLogo ? const SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2)) : const Icon(Icons.upload),
-                            label: const Text('Upload Logo'),
-                          ),
+  onPressed: _isUploadingLogo ? null : _pickAndUploadLogo,
+  style: OutlinedButton.styleFrom(
+    foregroundColor: AppColors.textPrimary, // Colors the upload icon
+    side: BorderSide(color: AppColors.textPrimary), // Colors the border outline
+    // backgroundColor: Colors.transparent, // Optional: add a fill color
+  ),
+  icon: _isUploadingLogo
+      ? const SizedBox(
+          width: 16,
+          height: 16,
+          child: CircularProgressIndicator(strokeWidth: 2),
+        )
+      : const Icon(Icons.upload),
+  label: const Text(
+    'Upload Logo',
+    style: TextStyle(color: AppColors.textPrimary),
+  ),
+),
+
                         ]),
                       ],
                     ),
@@ -382,6 +397,7 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
                                     controller: _maxBooksPerStudentController,
                                     label: 'Maximum Books Per Student',
                                     suffix: 'Books',
+                                  
                                     minimum: 1,
                                   ),
                                   const SizedBox(height: 16),
@@ -663,6 +679,7 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
       enabled: !_isSaving,
       decoration: InputDecoration(
         labelText: label,
+        labelStyle: TextStyle(color: AppColors.textPrimary),
         prefixIcon: Icon(icon, color: textMuted),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(9),
@@ -714,8 +731,11 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
       ),
       decoration: InputDecoration(
         labelText: label,
+        labelStyle: TextStyle(color: AppColors.textPrimary),
         suffixText: suffix,
+        suffixStyle: TextStyle(color: AppColors.textPrimary),
         prefixText: prefix,
+        prefixStyle: TextStyle(color: AppColors.textPrimary),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(9),
         ),
@@ -779,6 +799,7 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
           keyboardType: TextInputType.number,
           decoration: InputDecoration(
             labelText: 'Reservation Pickup Time Limit',
+            labelStyle: TextStyle(color: AppColors.textPrimary),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(9),
             ),
@@ -820,6 +841,7 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
           initialValue: _reservationHoldUnit,
           decoration: InputDecoration(
             labelText: 'Unit',
+            labelStyle: TextStyle(color: AppColors.textPrimary),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(9),
             ),
@@ -993,7 +1015,7 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
               label,
               style: const TextStyle(
                 fontSize: 12,
-                color: textMuted,
+                color: AppColors.textPrimary,
               ),
             ),
           ),
@@ -1005,7 +1027,7 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
               style: const TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.bold,
-                color: textDark,
+                color: AppColors.textPrimary,
               ),
             ),
           ),

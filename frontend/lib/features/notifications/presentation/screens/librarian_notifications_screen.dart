@@ -368,7 +368,7 @@ class _LibrarianNotificationsScreenState
                       child: Text(
                         'Notifications',
                         style: TextStyle(
-                          color: AppColors.primary,
+                          color: AppColors.textPrimary,
                           fontSize: 28,
                           fontWeight: FontWeight.bold,
                         ),

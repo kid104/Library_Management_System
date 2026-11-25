@@ -12,7 +12,7 @@ class AppColors {
   // THEME SELECTION
   // ===========================================================================
 
-  static const String selectedTheme = 'dark';
+  static const String selectedTheme = 'warm';
 
   static const bool isDark = selectedTheme == 'dark';
 
@@ -21,7 +21,7 @@ class AppColors {
   // ===========================================================================
 
   static const Color primary = selectedTheme == 'dark'
-      ? Color(0xFF0B132B)
+      ? Color.fromARGB(255, 20, 32, 70)
       : selectedTheme == 'midnight'
           ? Color(0xFF0B132B)
           : selectedTheme == 'ocean'
@@ -30,6 +30,15 @@ class AppColors {
                   ? Color(0xFF365447)
                   : Color(0xFF514746);
 
+static const Color password = selectedTheme == 'dark'
+      ? Color.fromARGB(255, 251, 252, 254)
+      : selectedTheme == 'midnight'
+          ? Color.fromARGB(255, 242, 243, 246)
+          : selectedTheme == 'ocean'
+              ? Color.fromARGB(255, 232, 236, 238)
+              : selectedTheme == 'forest'
+                  ? Color.fromARGB(255, 239, 244, 242)
+                  : Color.fromARGB(255, 250, 249, 249);
   static const Color primaryDark = selectedTheme == 'dark'
       ? Color(0xFF070B18)
       : selectedTheme == 'midnight'
@@ -105,7 +114,7 @@ class AppColors {
                   : Color(0xFF746E69);
 
   static const Color textMuted = selectedTheme == 'dark'
-      ? Color(0xFF94A3B8)
+      ? Color.fromARGB(255, 214, 219, 224)
       : selectedTheme == 'midnight'
           ? Color(0xFF64748B)
           : selectedTheme == 'ocean'
@@ -115,7 +124,7 @@ class AppColors {
                   : Color(0xFF666666);
 
   static const Color textSubtle = selectedTheme == 'dark'
-      ? Color(0xFF8494AA)
+      ? Color.fromARGB(255, 208, 212, 216)
       : selectedTheme == 'midnight'
           ? Color(0xFF94A3B8)
           : selectedTheme == 'ocean'

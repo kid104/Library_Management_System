@@ -451,6 +451,9 @@ class _AdminInventoryScreenState extends State<AdminInventoryScreen> {
                           )
                         : null,
                     hintText: 'Search by title, author, ISBN, category...',
+                    hintStyle: TextStyle(
+                      color: AppColors.textPrimary
+                    ),
                     border: InputBorder.none,
                     isDense: true,
                   ),
@@ -1018,7 +1021,7 @@ class _InteractiveStatCardState extends State<_InteractiveStatCard> {
                           style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF1E293B),
+                            color: AppColors.textPrimary,
                           ),
                         ),
                         Text(

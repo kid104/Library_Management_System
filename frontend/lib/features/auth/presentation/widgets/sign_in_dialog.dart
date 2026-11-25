@@ -132,9 +132,7 @@ class _SignInDialogState extends State<SignInDialog> {
                     ),
                     const SizedBox(width: 14),
                     const Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
+                      child: 
                           Text(
                             'Sign In to Library System',
                             style: TextStyle(
@@ -143,16 +141,8 @@ class _SignInDialogState extends State<SignInDialog> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: 2),
-                          Text(
-                            'Sign in to your library dashboard',
-                            style: TextStyle(
-                              color: AppColors.accentBorder,
-                              fontSize: 11,
-                            ),
-                          ),
-                        ],
-                      ),
+                          
+                      
                     ),
                     IconButton(
                       icon: const Icon(
@@ -231,9 +221,13 @@ class _SignInDialogState extends State<SignInDialog> {
                         labelText: _selectedRole == UserRole.reader
                             ? 'Student ID or Email'
                             : 'Work Email',
+                        labelStyle: TextStyle(
+                          color: AppColors.textPrimary
+                        ),
                         prefixIcon: const Icon(
                           Icons.email_outlined,
                           size: 20,
+                          color: AppColors.textPrimary
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -254,9 +248,13 @@ class _SignInDialogState extends State<SignInDialog> {
                       enabled: !_isSigningIn,
                       decoration: InputDecoration(
                         labelText: 'Password',
+                        labelStyle: TextStyle(
+                          color: AppColors.textPrimary
+                        ),
                         prefixIcon: const Icon(
                           Icons.lock_outline,
                           size: 20,
+                          color: AppColors.textPrimary
                         ),
                         suffixIcon: IconButton(
                           icon: Icon(
@@ -264,6 +262,7 @@ class _SignInDialogState extends State<SignInDialog> {
                                 ? Icons.visibility_outlined
                                 : Icons.visibility_off_outlined,
                             size: 20,
+                            color: AppColors.textPrimary,
                           ),
                           onPressed: () {
                             setState(() {
@@ -370,7 +369,7 @@ class _SignInDialogState extends State<SignInDialog> {
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
-                  color: isSelected ? activeColor : const Color(0xFF333333),
+                  color: isSelected ? activeColor : AppColors.textPrimary,
                 ),
               ),
               Text(

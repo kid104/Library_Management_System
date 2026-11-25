@@ -303,7 +303,7 @@ class _AddBookDialogState extends State<AddBookDialog> {
             child: Text(
               'Add New Book',
               style: TextStyle(
-                color: _dark,
+                color: AppColors.textPrimary,
                 fontSize: 20,
                 fontWeight: FontWeight.w700,
               ),
@@ -313,6 +313,7 @@ class _AddBookDialogState extends State<AddBookDialog> {
             tooltip: 'Close',
             onPressed: _saving ? null : () => Navigator.pop(context, false),
             icon: const Icon(Icons.close),
+            color: AppColors.textPrimary
           ),
         ],
       ),
@@ -799,7 +800,7 @@ class _AddBookDialogState extends State<AddBookDialog> {
               label,
               style: const TextStyle(
                 fontWeight: FontWeight.w600,
-                color: _dark,
+                color: AppColors.textPrimary,
                 fontSize: 13,
               ),
             ),
@@ -825,6 +826,7 @@ class _AddBookDialogState extends State<AddBookDialog> {
           _dialogLabel(label, required: required),
           TextFormField(
             controller: controller,
+            
             enabled: !_saving,
             keyboardType: numeric ? TextInputType.number : TextInputType.text,
             maxLines: maxLines,
@@ -901,9 +903,11 @@ class _BarcodeScannerDialogState extends State<_BarcodeScannerDialog> {
           children: [
             ListTile(
               title: const Text('Scan ISBN Barcode'),
+              tileColor: AppColors.primary,
+              titleTextStyle: TextStyle(color: AppColors.password),
               trailing: IconButton(
                 onPressed: () => Navigator.pop(context),
-                icon: const Icon(Icons.close),
+                icon: const Icon(Icons.close, color: AppColors.password),
               ),
             ),
             Expanded(
@@ -928,10 +932,15 @@ class _BarcodeScannerDialogState extends State<_BarcodeScannerDialog> {
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(12),
-              child: Text('Place the book barcode inside the camera frame.'),
-            ),
+            Container(
+  padding: const EdgeInsets.all(12),
+  color: AppColors.primary, // <-- Background fill color
+  child: const Text(
+    'Place the book barcode inside the camera frame.',
+    style: TextStyle(color: AppColors.password),
+  ),
+),
+
           ],
         ),
       ),
@@ -1073,11 +1082,13 @@ class _WindowsBarcodeScannerDialogState
             children: [
               ListTile(
                 title: const Text('Scan ISBN Barcode'),
+                tileColor: AppColors.password,
                 trailing: IconButton(
                   onPressed: _loading || _detected
                       ? null
                       : () => unawaited(_finish(null)),
                   icon: const Icon(Icons.close),
+                  color: AppColors.iconPrimary
                 ),
               ),
               Expanded(
@@ -1099,15 +1110,19 @@ class _WindowsBarcodeScannerDialogState
                                 child: Text('Camera preview is unavailable.'),
                               ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(12),
-                child: Text(
-                  _errorMessage == null
-                      ? 'Place the book barcode inside the camera frame.'
-                      : 'You can close this window and enter the ISBN manually.',
-                  textAlign: TextAlign.center,
-                ),
-              ),
+              Container(
+  width: double.infinity,
+  padding: const EdgeInsets.all(12),
+  color: AppColors.password, // <-- Replace with your background color
+  child: Text(
+    _errorMessage == null
+        ? 'Place the book barcode inside the camera frame.'
+        : 'You can close this window and enter the ISBN manually.',
+    style: const TextStyle(color: AppColors.textPrimary),
+    textAlign: TextAlign.center,
+  ),
+),
+
             ],
           ),
         ),

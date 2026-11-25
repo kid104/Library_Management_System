@@ -207,7 +207,7 @@ class TopHeaderBar extends StatelessWidget {
                   children: [
                     Icon(Icons.lock_outline, size: 18),
                     SizedBox(width: 10),
-                    Text('Change Password'),
+                    Text('Change Password',style: TextStyle(color: AppColors.textPrimary)),
                   ],
                 ),
               ),

@@ -227,9 +227,44 @@ class _ReaderHomeScreenState extends State<ReaderHomeScreen> {
     return Padding(
       padding: const EdgeInsets.only(top: 16),
       child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        OutlinedButton.icon(onPressed: currentPage > 0 ? () => setState(() => _bookPage = currentPage - 1) : null, icon: const Icon(Icons.chevron_left), label: const Text('Previous')),
-        Padding(padding: const EdgeInsets.symmetric(horizontal: 16), child: Text('Page ${currentPage + 1} of $pageCount')),
-        OutlinedButton.icon(onPressed: currentPage + 1 < pageCount ? () => setState(() => _bookPage = currentPage + 1) : null, icon: const Icon(Icons.chevron_right), label: const Text('Next')),
+        OutlinedButton.icon(
+  onPressed: currentPage > 0 ? () => setState(() => _bookPage = currentPage - 1) : null,
+  style: OutlinedButton.styleFrom(
+    foregroundColor: AppColors.textPrimary, // Colors active text & icon
+    disabledForegroundColor: AppColors.textPrimary.withOpacity(0.38), // Colors disabled text & icon
+    side: BorderSide(
+      color: currentPage > 0 
+          ? AppColors.textPrimary 
+          : AppColors.textPrimary.withOpacity(0.12), // Fades border when disabled
+    ),
+  ),
+  icon: const Icon(Icons.chevron_left),
+  label: const Text('Previous'),
+),
+
+Padding(
+  padding: const EdgeInsets.symmetric(horizontal: 16),
+  child: Text(
+    'Page ${currentPage + 1} of $pageCount',
+    style: const TextStyle(color: AppColors.textPrimary), // Matches the page counter text
+  ),
+),
+
+OutlinedButton.icon(
+  onPressed: currentPage + 1 < pageCount ? () => setState(() => _bookPage = currentPage + 1) : null,
+  style: OutlinedButton.styleFrom(
+    foregroundColor: AppColors.textPrimary,
+    disabledForegroundColor: AppColors.textPrimary.withOpacity(0.38),
+    side: BorderSide(
+      color: currentPage + 1 < pageCount 
+          ? AppColors.textPrimary 
+          : AppColors.textPrimary.withOpacity(0.12),
+    ),
+  ),
+  iconAlignment: IconAlignment.end, // Optional: puts the right chevron after "Next"
+  icon: const Icon(Icons.chevron_right),
+  label: const Text('Next'),
+),
       ]),
     );
   }
@@ -318,7 +353,7 @@ class _ReaderHomeScreenState extends State<ReaderHomeScreen> {
                   }
                   return DropdownButtonFormField<String>(
                     value: names.contains(_selectedCategory) ? _selectedCategory : 'Recommended for You',
-                    decoration: const InputDecoration(labelText: 'Browse books by category', prefixIcon: Icon(Icons.category_outlined), border: OutlineInputBorder()),
+                    decoration: const InputDecoration(labelText: 'Browse books by category', labelStyle: TextStyle(color: AppColors.textPrimary),prefixIcon: Icon(Icons.category_outlined, color: AppColors.textPrimary), border: OutlineInputBorder()),
                     items: names.toSet().map((name) => DropdownMenuItem(value: name, child: Text(name))).toList(),
                     onChanged: _selectCategory,
                   );
@@ -869,7 +904,7 @@ class _ReaderHomeScreenState extends State<ReaderHomeScreen> {
                       style: TextStyle(
                         fontSize: compact ? 12 : 13,
                         height: 1.7,
-                        color: AppColors.accentSurface,
+                        color: AppColors.textPrimary,
                       ),
                     ),
                   ],
