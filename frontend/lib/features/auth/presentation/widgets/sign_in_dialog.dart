@@ -100,7 +100,7 @@ class _SignInDialogState extends State<SignInDialog> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.dialogBackground,
       clipBehavior: Clip.antiAlias,
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 520),
@@ -121,12 +121,12 @@ class _SignInDialogState extends State<SignInDialog> {
                     Container(
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.2),
+                        color: AppColors.white.withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: const Icon(
                         Icons.menu_book,
-                        color: Colors.white,
+                        color: AppColors.white,
                         size: 22,
                       ),
                     ),
@@ -138,7 +138,7 @@ class _SignInDialogState extends State<SignInDialog> {
                           Text(
                             'Sign In to Library System',
                             style: TextStyle(
-                              color: Colors.white,
+                              color: AppColors.white,
                               fontSize: 17,
                               fontWeight: FontWeight.bold,
                             ),
@@ -147,7 +147,7 @@ class _SignInDialogState extends State<SignInDialog> {
                           Text(
                             'Sign in to your library dashboard',
                             style: TextStyle(
-                              color: Color(0xFFF6B7A5),
+                              color: AppColors.accentBorder,
                               fontSize: 11,
                             ),
                           ),
@@ -157,7 +157,7 @@ class _SignInDialogState extends State<SignInDialog> {
                     IconButton(
                       icon: const Icon(
                         Icons.close,
-                        color: Colors.white70,
+                        color: AppColors.white70,
                       ),
                       onPressed: () => Navigator.of(context).pop(),
                     ),
@@ -176,7 +176,7 @@ class _SignInDialogState extends State<SignInDialog> {
                       style: TextStyle(
                         fontSize: 11,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF555555),
+                        color: AppColors.textBody,
                         letterSpacing: 0.5,
                       ),
                     ),
@@ -189,7 +189,7 @@ class _SignInDialogState extends State<SignInDialog> {
                           label: 'Admin',
                           subtitle: 'System Admin',
                           icon: Icons.security,
-                          activeColor: const Color(0xFFF25635),
+                          activeColor: AppColors.primaryAccent,
                         ),
                         const SizedBox(width: 8),
                         _buildRoleTab(
@@ -197,7 +197,7 @@ class _SignInDialogState extends State<SignInDialog> {
                           label: 'Librarian',
                           subtitle: 'Desk Officer',
                           icon: Icons.assignment_turned_in,
-                          activeColor: const Color(0xFF059669),
+                          activeColor: AppColors.success,
                         ),
                         const SizedBox(width: 8),
                         _buildRoleTab(
@@ -205,7 +205,7 @@ class _SignInDialogState extends State<SignInDialog> {
                           label: 'Reader',
                           subtitle: 'Student User',
                           icon: Icons.person,
-                          activeColor: const Color(0xFFF25635),
+                          activeColor: AppColors.primaryAccent,
                         ),
                       ],
                     ),
@@ -218,7 +218,7 @@ class _SignInDialogState extends State<SignInDialog> {
                       style: TextStyle(
                         fontSize: 11,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF555555),
+                        color: AppColors.textBody,
                         letterSpacing: 0.5,
                       ),
                     ),
@@ -288,7 +288,7 @@ class _SignInDialogState extends State<SignInDialog> {
                       Text(
                         _errorMessage!,
                         style: const TextStyle(
-                          color: Colors.red,
+                          color: AppColors.red,
                           fontSize: 12,
                         ),
                       ),
@@ -303,7 +303,7 @@ class _SignInDialogState extends State<SignInDialog> {
                         onPressed: _isSigningIn ? null : _submit,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primary,
-                          foregroundColor: Colors.white,
+                          foregroundColor: AppColors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -350,10 +350,10 @@ class _SignInDialogState extends State<SignInDialog> {
           ),
           decoration: BoxDecoration(
             color:
-                isSelected ? activeColor.withValues(alpha: 0.08) : Colors.white,
+                isSelected ? activeColor.withValues(alpha: 0.12) : AppColors.containerSurfaceLight,
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
-              color: isSelected ? activeColor : const Color(0xFFD9D9D9),
+              color: isSelected ? activeColor : AppColors.divider,
               width: isSelected ? 2 : 1,
             ),
           ),
@@ -362,7 +362,7 @@ class _SignInDialogState extends State<SignInDialog> {
               Icon(
                 icon,
                 size: 22,
-                color: isSelected ? activeColor : const Color(0xFF666666),
+                color: isSelected ? activeColor : AppColors.textMuted,
               ),
               const SizedBox(height: 4),
               Text(
@@ -377,7 +377,7 @@ class _SignInDialogState extends State<SignInDialog> {
                 subtitle,
                 style: const TextStyle(
                   fontSize: 9,
-                  color: Color(0xFFAAA898),
+                  color: AppColors.textSubtle,
                 ),
               ),
             ],

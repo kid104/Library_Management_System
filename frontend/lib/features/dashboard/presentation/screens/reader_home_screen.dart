@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:library_management_system/core/constants/app_colors.dart';
 
 import '../../../books/domain/entities/book.dart';
 import '../../../borrowing/domain/entities/borrow_record.dart';
@@ -54,11 +55,11 @@ class _ReaderHomeScreenState extends State<ReaderHomeScreen> {
   // Tracks which book is currently being reserved.
   String? _reservingBookId;
 
-  static const Color primaryBlue = Color(0xFFF25635);
-  static const Color darkBlue = Color(0xFF514746);
-  static const Color textDark = Color(0xFF171717);
-  static const Color textMuted = Color(0xFF666666);
-  static const Color borderColor = Color(0xFFD9D9D9);
+  static const Color primaryBlue = AppColors.primaryAccent;
+  static const Color darkBlue = AppColors.primary;
+  static const Color textDark = AppColors.textStrong;
+  static const Color textMuted = AppColors.textMuted;
+  static const Color borderColor = AppColors.divider;
 
   @override
   void initState() {
@@ -91,7 +92,7 @@ class _ReaderHomeScreenState extends State<ReaderHomeScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Invalid book ID.'),
-          backgroundColor: Colors.red,
+          backgroundColor: AppColors.red,
         ),
       );
       return;
@@ -117,7 +118,7 @@ class _ReaderHomeScreenState extends State<ReaderHomeScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(_reservationCreatedMessage(book.title, reservation)),
-          backgroundColor: Colors.green,
+          backgroundColor: AppColors.green,
         ),
       );
     } catch (e) {
@@ -128,7 +129,7 @@ class _ReaderHomeScreenState extends State<ReaderHomeScreen> {
           content: Text(
             'Could not reserve "${book.title}": $e',
           ),
-          backgroundColor: Colors.red,
+          backgroundColor: AppColors.red,
         ),
       );
     } finally {
@@ -365,7 +366,7 @@ class _ReaderHomeScreenState extends State<ReaderHomeScreen> {
                   return Column(children: [Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: AppColors.containerSurface,
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(color: borderColor),
                     ),
@@ -419,7 +420,7 @@ class _ReaderHomeScreenState extends State<ReaderHomeScreen> {
             width: double.infinity,
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: AppColors.containerSurface,
               borderRadius: BorderRadius.circular(14),
               border: Border.all(color: borderColor),
             ),
@@ -428,7 +429,7 @@ class _ReaderHomeScreenState extends State<ReaderHomeScreen> {
                 const Icon(
                   Icons.cloud_off_outlined,
                   size: 35,
-                  color: Color(0xFFAAA898),
+                  color: AppColors.textSubtle,
                 ),
                 const SizedBox(height: 8),
                 const Text(
@@ -474,7 +475,7 @@ class _ReaderHomeScreenState extends State<ReaderHomeScreen> {
             'Books Read This Year',
             '${dashboard.booksReadThisYear} Books',
             Icons.military_tech_outlined,
-            const Color(0xFF059669),
+            AppColors.success,
           ),
         ];
 
@@ -585,7 +586,7 @@ class _ReaderHomeScreenState extends State<ReaderHomeScreen> {
     final daysLeft = DateTime(dueDate.year, dueDate.month, dueDate.day)
         .difference(today)
         .inDays;
-    final color = daysLeft < 0 ? const Color(0xFFDC2626) : primaryBlue;
+    final color = daysLeft < 0 ? AppColors.error : primaryBlue;
     final status = daysLeft < 0
         ? 'Overdue by ${daysLeft.abs()} day${daysLeft.abs() == 1 ? '' : 's'}'
         : daysLeft == 0
@@ -600,7 +601,7 @@ class _ReaderHomeScreenState extends State<ReaderHomeScreen> {
       margin: const EdgeInsets.only(bottom: 10),
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.containerSurface,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: color.withValues(alpha: 0.3)),
       ),
@@ -658,7 +659,7 @@ class _ReaderHomeScreenState extends State<ReaderHomeScreen> {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       decoration: BoxDecoration(
-        color: const Color(0xFFFBF1E4),
+        color: AppColors.background,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: borderColor),
       ),
@@ -684,10 +685,10 @@ class _ReaderHomeScreenState extends State<ReaderHomeScreen> {
     return Container(
       padding: EdgeInsets.all(compact ? 7 : 9),
       decoration: BoxDecoration(
-        color: const Color(0xFFFBF1E4),
+        color: AppColors.background,
         borderRadius: BorderRadius.circular(17),
         border: Border.all(
-          color: const Color(0xFFD9D9D9),
+          color: AppColors.divider,
           width: 1.5,
         ),
       ),
@@ -696,7 +697,7 @@ class _ReaderHomeScreenState extends State<ReaderHomeScreen> {
           const SizedBox(width: 10),
           const Icon(
             Icons.search,
-            color: Color(0xFFF25635),
+            color: AppColors.primaryAccent,
             size: 23,
           ),
           const SizedBox(width: 12),
@@ -712,7 +713,7 @@ class _ReaderHomeScreenState extends State<ReaderHomeScreen> {
               decoration: InputDecoration(
                 hintText: 'Search for books, authors, or genres...',
                 hintStyle: TextStyle(
-                  color: const Color(0xFFAAA898),
+                  color: AppColors.textSubtle,
                   fontSize: compact ? 12 : 14,
                 ),
                 border: InputBorder.none,
@@ -746,8 +747,8 @@ class _ReaderHomeScreenState extends State<ReaderHomeScreen> {
               ),
             ),
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFFF25635),
-              foregroundColor: Colors.white,
+              backgroundColor: AppColors.primaryAccent,
+              foregroundColor: AppColors.white,
               elevation: 0,
               padding: EdgeInsets.symmetric(
                 horizontal: compact ? 12 : 18,
@@ -795,21 +796,21 @@ class _ReaderHomeScreenState extends State<ReaderHomeScreen> {
               if (loadingProgress == null) return child;
 
               return Container(
-                color: const Color(0xFF514746),
+                color: AppColors.primary,
                 alignment: Alignment.center,
                 child: const CircularProgressIndicator(
-                  color: Colors.white,
+                  color: AppColors.white,
                 ),
               );
             },
             errorBuilder: (context, error, stackTrace) {
               return Container(
-                color: const Color(0xFF514746),
+                color: AppColors.primary,
                 alignment: Alignment.center,
                 child: const Icon(
                   Icons.local_library,
                   size: 80,
-                  color: Colors.white70,
+                  color: AppColors.white70,
                 ),
               );
             },
@@ -858,7 +859,7 @@ class _ReaderHomeScreenState extends State<ReaderHomeScreen> {
                         fontSize: compact ? 23 : 27,
                         height: 1.25,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        color: AppColors.white,
                       ),
                     ),
                     const SizedBox(height: 14),
@@ -868,7 +869,7 @@ class _ReaderHomeScreenState extends State<ReaderHomeScreen> {
                       style: TextStyle(
                         fontSize: compact ? 12 : 13,
                         height: 1.7,
-                        color: const Color(0xFFFBE2D9),
+                        color: AppColors.accentSurface,
                       ),
                     ),
                   ],
@@ -906,7 +907,7 @@ class _ReaderHomeScreenState extends State<ReaderHomeScreen> {
       width: double.infinity,
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.containerSurface,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: borderColor),
       ),
@@ -973,7 +974,7 @@ class _ReaderHomeScreenState extends State<ReaderHomeScreen> {
 
   Widget _buildBookItem(BuildContext context, Book book) {
     return _HoverLift(
-      hoverBorderColor: const Color(0xFFF6B7A5),
+      hoverBorderColor: AppColors.accentBorder,
       hoverShadowColor: primaryBlue,
       hoverShadowOpacity: 0.16,
       child: _bookItemBody(context, book),
@@ -989,7 +990,7 @@ class _ReaderHomeScreenState extends State<ReaderHomeScreen> {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: const Color(0xFFFBF1E4),
+        color: AppColors.background,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: borderColor),
       ),
@@ -1044,7 +1045,7 @@ class _ReaderHomeScreenState extends State<ReaderHomeScreen> {
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                     fontSize: 10,
-                    color: Color(0xFFAAA898),
+                    color: AppColors.textSubtle,
                   ),
                 ),
                 const SizedBox(height: 5),
@@ -1057,8 +1058,8 @@ class _ReaderHomeScreenState extends State<ReaderHomeScreen> {
                   style: TextStyle(
                     fontSize: 10,
                     color: book.availableCopies > 0
-                        ? const Color(0xFF059669)
-                        : Colors.red,
+                        ? AppColors.success
+                        : AppColors.red,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -1089,7 +1090,7 @@ class _ReaderHomeScreenState extends State<ReaderHomeScreen> {
                       ),
                     ),
                     style: TextButton.styleFrom(
-                      foregroundColor: const Color(0xFFF25635),
+                      foregroundColor: AppColors.primaryAccent,
                       padding: const EdgeInsets.symmetric(
                         horizontal: 8,
                         vertical: 5,
@@ -1116,7 +1117,7 @@ class _ReaderHomeScreenState extends State<ReaderHomeScreen> {
       width: double.infinity,
       padding: const EdgeInsets.all(28),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.containerSurface,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: borderColor),
       ),
@@ -1125,7 +1126,7 @@ class _ReaderHomeScreenState extends State<ReaderHomeScreen> {
           const Icon(
             Icons.cloud_off_outlined,
             size: 45,
-            color: Color(0xFFAAA898),
+            color: AppColors.textSubtle,
           ),
           const SizedBox(height: 12),
           const Text(
@@ -1165,7 +1166,7 @@ class _ReaderHomeScreenState extends State<ReaderHomeScreen> {
       width: double.infinity,
       padding: const EdgeInsets.all(36),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.containerSurface,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: borderColor),
       ),
@@ -1174,7 +1175,7 @@ class _ReaderHomeScreenState extends State<ReaderHomeScreen> {
           Icon(
             Icons.menu_book_outlined,
             size: 48,
-            color: Color(0xFFAAA898),
+            color: AppColors.textSubtle,
           ),
           SizedBox(height: 12),
           Text(
@@ -1208,7 +1209,7 @@ class _ReaderHomeScreenState extends State<ReaderHomeScreen> {
       width: double.infinity,
       padding: const EdgeInsets.all(36),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.containerSurface,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: borderColor),
       ),
@@ -1217,7 +1218,7 @@ class _ReaderHomeScreenState extends State<ReaderHomeScreen> {
           Icon(
             Icons.search_off,
             size: 48,
-            color: Color(0xFFAAA898),
+            color: AppColors.textSubtle,
           ),
           SizedBox(height: 12),
           Text(
@@ -1251,8 +1252,8 @@ class _ReaderHomeScreenState extends State<ReaderHomeScreen> {
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Color(0xFF514746),
-            Color(0xFFF25635),
+            AppColors.primary,
+            AppColors.primaryAccent,
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -1261,7 +1262,7 @@ class _ReaderHomeScreenState extends State<ReaderHomeScreen> {
       alignment: Alignment.center,
       child: const Icon(
         Icons.menu_book,
-        color: Colors.white,
+        color: AppColors.white,
         size: 32,
       ),
     );
@@ -1283,8 +1284,8 @@ class _HoverLift extends StatefulWidget {
   const _HoverLift({
     required this.child,
     this.radius = 14,
-    this.hoverBorderColor = Colors.white,
-    this.hoverShadowColor = Colors.black,
+    this.hoverBorderColor = AppColors.white,
+    this.hoverShadowColor = AppColors.black,
     this.hoverShadowOpacity = 0.06,
   });
 
@@ -1326,7 +1327,7 @@ class _HoverLiftState extends State<_HoverLift> {
         foregroundDecoration: BoxDecoration(
           borderRadius: BorderRadius.circular(widget.radius),
           border: Border.all(
-            color: _isHovered ? widget.hoverBorderColor : Colors.transparent,
+            color: _isHovered ? widget.hoverBorderColor : AppColors.transparent,
             width: 1.5,
           ),
         ),

@@ -3,6 +3,7 @@ package com.library.library_backend.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "notifications")
@@ -43,7 +44,13 @@ public class Notification {
     private Integer reservationId;
 
     @Column(name = "borrowing_id")
-private Integer borrowingId;
+    private Integer borrowingId;
+
+    @Column(name = "recipient_positions", columnDefinition = "TEXT")
+    private String recipientPositions;
+
+    @Column(name = "valid_until")
+    private LocalDate validUntil;
 
     public Notification() {
     }
@@ -131,4 +138,8 @@ private Integer borrowingId;
 public void setBorrowingId(Integer borrowingId) {
     this.borrowingId = borrowingId;
 }
+    public String getRecipientPositions() { return recipientPositions; }
+    public void setRecipientPositions(String recipientPositions) { this.recipientPositions = recipientPositions; }
+    public LocalDate getValidUntil() { return validUntil; }
+    public void setValidUntil(LocalDate validUntil) { this.validUntil = validUntil; }
 }

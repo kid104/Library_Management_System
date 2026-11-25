@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import '../../../../core/config/api_config.dart';
+import 'package:library_management_system/core/constants/app_colors.dart';
 
 import '../../domain/entities/staff_member.dart';
 import '../../../../core/di/injector.dart';
@@ -15,11 +19,11 @@ class StaffManagementScreen extends StatefulWidget {
 }
 
 class _StaffManagementScreenState extends State<StaffManagementScreen> {
-  static const Color primary = Color(0xFFF25635);
-  static const Color dark = Color(0xFF171717);
-  static const Color muted = Color(0xFF666666);
-  static const Color borderColor = Color(0xFFD9D9D9);
-  static const Color backgroundColor = Color(0xFFFBF1E4);
+  static const Color primary = AppColors.primaryAccent;
+  static const Color dark = AppColors.textStrong;
+  static const Color muted = AppColors.textMuted;
+  static const Color borderColor = AppColors.divider;
+  static const Color backgroundColor = AppColors.background;
 
   final GetAllStaff _getAllStaffUseCase = injector.getAllStaff;
   final AddStaff _addStaffUseCase = injector.addStaff;
@@ -262,8 +266,8 @@ class _StaffManagementScreenState extends State<StaffManagementScreen> {
             ElevatedButton(
               onPressed: () => Navigator.pop(dialogContext, true),
               style: ElevatedButton.styleFrom(
-                backgroundColor: isCurrentlyActive ? Colors.red : primary,
-                foregroundColor: Colors.white,
+                backgroundColor: isCurrentlyActive ? AppColors.red : primary,
+                foregroundColor: AppColors.white,
               ),
               child: Text(
                 isCurrentlyActive ? 'Deactivate' : 'Activate',
@@ -301,6 +305,125 @@ class _StaffManagementScreenState extends State<StaffManagementScreen> {
         isError: true,
       );
     }
+  }
+
+  Future<void> _openAnnouncementDialog() async {
+    final formKey = GlobalKey<FormState>();
+    final titleController = TextEditingController();
+    final bodyController = TextEditingController();
+    final selected = <String>{};
+    bool forAll = true;
+    DateTime? validUntil;
+    bool submitting = false;
+
+    final result = await showDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      builder: (dialogContext) => StatefulBuilder(
+        builder: (context, setDialogState) => AlertDialog(
+          title: const Text('Make Announcement'),
+          content: SizedBox(
+            width: 480,
+            child: Form(
+              key: formKey,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextFormField(
+                      controller: titleController,
+                      maxLength: 150,
+                      decoration: const InputDecoration(labelText: 'Announcement title', border: OutlineInputBorder()),
+                      validator: (v) => v == null || v.trim().isEmpty ? 'Enter a title' : null,
+                    ),
+                    const SizedBox(height: 12),
+                    TextFormField(
+                      controller: bodyController,
+                      minLines: 3,
+                      maxLines: 6,
+                      decoration: const InputDecoration(labelText: 'Announcement body', alignLabelWithHint: true, border: OutlineInputBorder()),
+                      validator: (v) => v == null || v.trim().isEmpty ? 'Enter the announcement' : null,
+                    ),
+                    const SizedBox(height: 16),
+                    const Text('Send to', style: TextStyle(fontWeight: FontWeight.w600)),
+                    CheckboxListTile(
+                      contentPadding: EdgeInsets.zero,
+                      title: const Text('For All Librarians'),
+                      value: forAll,
+                      onChanged: (v) => setDialogState(() { forAll = v ?? false; if (forAll) selected.clear(); }),
+                    ),
+                    if (!forAll)
+                      ..._positions.map((position) => CheckboxListTile(
+                        contentPadding: EdgeInsets.zero,
+                        dense: true,
+                        title: Text(position),
+                        value: selected.contains(position),
+                        onChanged: (checked) => setDialogState(() {
+                          if (checked == true) { selected.add(position); } else { selected.remove(position); }
+                        }),
+                      )),
+                    if (!forAll && selected.isEmpty)
+                      const Padding(padding: EdgeInsets.only(bottom: 8), child: Text('Select at least one position.', style: TextStyle(color: AppColors.red, fontSize: 12))),
+                    const SizedBox(height: 12),
+                    OutlinedButton.icon(
+                      icon: const Icon(Icons.calendar_month_outlined),
+                      label: Text(validUntil == null ? 'Choose expiry date' : 'Valid until: ${validUntil!.day}/${validUntil!.month}/${validUntil!.year}'),
+                      onPressed: () async {
+                        final picked = await showDatePicker(
+                          context: context,
+                          initialDate: validUntil ?? DateTime.now(),
+                          firstDate: DateTime.now(),
+                          lastDate: DateTime(2100),
+                        );
+                        if (picked != null) setDialogState(() => validUntil = picked);
+                      },
+                    ),
+                    if (validUntil == null)
+                      const Padding(padding: EdgeInsets.only(top: 6), child: Text('An expiry date is required.', style: TextStyle(color: AppColors.red, fontSize: 12))),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          actions: [
+            TextButton(onPressed: submitting ? null : () => Navigator.pop(dialogContext, false), child: const Text('Cancel')),
+            FilledButton(
+              onPressed: submitting ? null : () async {
+                if (!formKey.currentState!.validate() || validUntil == null || (!forAll && selected.isEmpty)) return;
+                setDialogState(() => submitting = true);
+                try {
+                  final response = await http.post(
+                    Uri.parse('${ApiConfig.baseUrl}/notifications/announcements'),
+                    headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+                    body: jsonEncode({
+                      'title': titleController.text.trim(),
+                      'message': bodyController.text.trim(),
+                      'forAll': forAll,
+                      'positions': selected.toList(),
+                      'validUntil': '${validUntil!.year.toString().padLeft(4, '0')}-${validUntil!.month.toString().padLeft(2, '0')}-${validUntil!.day.toString().padLeft(2, '0')}',
+                    }),
+                  );
+                  if (response.statusCode == 201) {
+                    if (dialogContext.mounted) Navigator.pop(dialogContext, true);
+                  } else {
+                    setDialogState(() => submitting = false);
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Could not create announcement: ${response.body}')));
+                  }
+                } catch (e) {
+                  setDialogState(() => submitting = false);
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Could not create announcement: $e')));
+                }
+              },
+              child: submitting ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2)) : const Text('Publish'),
+            ),
+          ],
+        ),
+      ),
+    );
+    titleController.dispose();
+    bodyController.dispose();
+    if (result == true && mounted) _showMessage('Announcement published successfully.');
   }
 
   // ------------------------------------------------------------
@@ -359,7 +482,7 @@ class _StaffManagementScreenState extends State<StaffManagementScreen> {
         return StatefulBuilder(
           builder: (dialogContext, setDialogState) {
             return AlertDialog(
-              backgroundColor: Colors.white,
+              backgroundColor: AppColors.dialogBackground,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(18),
               ),
@@ -368,7 +491,7 @@ class _StaffManagementScreenState extends State<StaffManagementScreen> {
                   Container(
                     padding: const EdgeInsets.all(9),
                     decoration: BoxDecoration(
-                      color: const Color(0xFFFBE2D9),
+                      color: AppColors.accentSurface,
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: const Icon(
@@ -639,10 +762,10 @@ class _StaffManagementScreenState extends State<StaffManagementScreen> {
                           Container(
                             padding: const EdgeInsets.all(12),
                             decoration: BoxDecoration(
-                              color: const Color(0xFFFBE2D9),
+                              color: AppColors.accentSurface,
                               borderRadius: BorderRadius.circular(12),
                               border: Border.all(
-                                color: const Color(0xFFF6B7A5),
+                                color: AppColors.accentBorder,
                               ),
                             ),
                             child: Column(
@@ -823,7 +946,7 @@ class _StaffManagementScreenState extends State<StaffManagementScreen> {
                         },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: primary,
-                    foregroundColor: Colors.white,
+                    foregroundColor: AppColors.white,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 18,
                       vertical: 13,
@@ -838,7 +961,7 @@ class _StaffManagementScreenState extends State<StaffManagementScreen> {
                           width: 18,
                           child: CircularProgressIndicator(
                             strokeWidth: 2,
-                            color: Colors.white,
+                            color: AppColors.white,
                           ),
                         )
                       : Text(
@@ -883,7 +1006,7 @@ class _StaffManagementScreenState extends State<StaffManagementScreen> {
             const Text(
               ' *',
               style: TextStyle(
-                color: Colors.red,
+                color: AppColors.red,
                 fontSize: 15,
                 fontWeight: FontWeight.bold,
               ),
@@ -944,13 +1067,13 @@ class _StaffManagementScreenState extends State<StaffManagementScreen> {
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
         borderSide: const BorderSide(
-          color: Colors.red,
+          color: AppColors.red,
         ),
       ),
       focusedErrorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
         borderSide: const BorderSide(
-          color: Colors.red,
+          color: AppColors.red,
           width: 1.5,
         ),
       ),
@@ -973,7 +1096,7 @@ class _StaffManagementScreenState extends State<StaffManagementScreen> {
         SnackBar(
           content: Text(message),
           backgroundColor:
-              isError ? Colors.red.shade700 : const Color(0xFF059669),
+              isError ? AppColors.red : AppColors.success,
           behavior: SnackBarBehavior.floating,
           duration: const Duration(seconds: 3),
         ),
@@ -1047,7 +1170,7 @@ class _StaffManagementScreenState extends State<StaffManagementScreen> {
             const Icon(
               Icons.cloud_off,
               size: 48,
-              color: Colors.red,
+              color: AppColors.red,
             ),
             const SizedBox(height: 12),
             const Text(
@@ -1123,6 +1246,11 @@ class _StaffManagementScreenState extends State<StaffManagementScreen> {
           icon: Icons.add,
           onPressed: () => _openStaffDialog(),
         );
+        final announcementButton = _HoverActionButton(
+          label: 'Make Announcement',
+          icon: Icons.campaign_outlined,
+          onPressed: _openAnnouncementDialog,
+        );
 
         if (compact) {
           return Column(
@@ -1130,7 +1258,7 @@ class _StaffManagementScreenState extends State<StaffManagementScreen> {
             children: [
               title,
               const SizedBox(height: 16),
-              addButton,
+              Wrap(spacing: 10, runSpacing: 10, children: [announcementButton, addButton]),
             ],
           );
         }
@@ -1139,6 +1267,8 @@ class _StaffManagementScreenState extends State<StaffManagementScreen> {
           children: [
             const Expanded(child: title),
             const SizedBox(width: 12),
+            announcementButton,
+            const SizedBox(width: 8),
             addButton,
           ],
         );
@@ -1171,13 +1301,13 @@ class _StaffManagementScreenState extends State<StaffManagementScreen> {
             'Active Accounts',
             active.toString(),
             Icons.check_circle_outline,
-            const Color(0xFF059669),
+            AppColors.success,
           ),
           _buildStatCard(
             'Librarians',
             librarians.toString(),
             Icons.assignment_ind_outlined,
-            const Color(0xFFF25635),
+            AppColors.primaryAccent,
           ),
           _buildStatCard(
             'Admins',
@@ -1238,12 +1368,12 @@ class _StaffManagementScreenState extends State<StaffManagementScreen> {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.containerSurface,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: borderColor),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.025),
+            color: AppColors.black.withValues(alpha: 0.025),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -1362,10 +1492,10 @@ class _StaffManagementScreenState extends State<StaffManagementScreen> {
         final roleFilter = Container(
           width: stacked ? double.infinity : 205,
           decoration: BoxDecoration(
-            color: const Color(0xFFFBE2D9),
+            color: AppColors.accentSurface,
             borderRadius: BorderRadius.circular(11),
             border: Border.all(
-              color: const Color(0xFFF6B7A5),
+              color: AppColors.accentBorder,
               width: 1.3,
             ),
           ),
@@ -1376,7 +1506,7 @@ class _StaffManagementScreenState extends State<StaffManagementScreen> {
               Icons.keyboard_arrow_down_rounded,
               color: primary,
             ),
-            dropdownColor: Colors.white,
+            dropdownColor: AppColors.containerSurfaceElevated,
             decoration: const InputDecoration(
               prefixIcon: Icon(
                 Icons.filter_list_rounded,
@@ -1453,7 +1583,7 @@ class _StaffManagementScreenState extends State<StaffManagementScreen> {
           constraints: BoxConstraints(minWidth: constraints.maxWidth),
           child: DataTable(
             headingRowColor: WidgetStateProperty.all(
-              const Color(0xFFFBF1E4),
+              AppColors.background,
             ),
             headingTextStyle: const TextStyle(
               fontSize: 11,
@@ -1495,7 +1625,7 @@ class _StaffManagementScreenState extends State<StaffManagementScreen> {
                         children: [
                           CircleAvatar(
                             radius: 17,
-                            backgroundColor: const Color(0xFFFBE2D9),
+                            backgroundColor: AppColors.accentSurface,
                             child: Text(
                               staff.name.isEmpty
                                   ? '?'
@@ -1573,8 +1703,8 @@ class _StaffManagementScreenState extends State<StaffManagementScreen> {
                       ),
                       decoration: BoxDecoration(
                         color: isActive
-                            ? const Color(0xFFECFDF5)
-                            : const Color(0xFFFEF2F2),
+                            ? AppColors.successSurface
+                            : AppColors.errorSurface,
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: Text(
@@ -1583,8 +1713,8 @@ class _StaffManagementScreenState extends State<StaffManagementScreen> {
                           fontSize: 11,
                           fontWeight: FontWeight.bold,
                           color: isActive
-                              ? const Color(0xFF059669)
-                              : const Color(0xFFDC2626),
+                              ? AppColors.success
+                              : AppColors.error,
                         ),
                       ),
                     ),
@@ -1606,7 +1736,7 @@ class _StaffManagementScreenState extends State<StaffManagementScreen> {
                           icon: isActive
                               ? Icons.person_off_outlined
                               : Icons.person_outline,
-                          color: isActive ? Colors.red : Colors.green,
+                          color: isActive ? AppColors.red : AppColors.green,
                           onPressed: () => _toggleStatus(staff),
                         ),
                       ],
@@ -1695,7 +1825,7 @@ class _HoverActionButtonState extends State<_HoverActionButton> {
           boxShadow: _isHovered
               ? [
                   BoxShadow(
-                    color: const Color(0xFFF25635).withValues(alpha: 0.22),
+                    color: AppColors.primaryAccent.withValues(alpha: 0.22),
                     blurRadius: 12,
                     offset: const Offset(0, 5),
                   ),
@@ -1707,8 +1837,8 @@ class _HoverActionButtonState extends State<_HoverActionButton> {
           icon: Icon(widget.icon, size: 18),
           label: Text(widget.label),
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFFF25635),
-            foregroundColor: Colors.white,
+            backgroundColor: AppColors.primaryAccent,
+            foregroundColor: AppColors.white,
             elevation: 0,
             padding: const EdgeInsets.symmetric(
               horizontal: 17,
@@ -1762,7 +1892,7 @@ class _HoverIconButtonState extends State<_HoverIconButton> {
           decoration: BoxDecoration(
             color: _isHovered
                 ? widget.color.withValues(alpha: 0.10)
-                : Colors.transparent,
+                : AppColors.transparent,
             borderRadius: BorderRadius.circular(8),
           ),
           child: IconButton(
@@ -1818,12 +1948,12 @@ class _HoverStatCardState extends State<_HoverStatCard> {
         ),
         padding: const EdgeInsets.all(17),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.containerSurface,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
             color: _isHovered
                 ? widget.color.withValues(alpha: 0.4)
-                : const Color(0xFFD9D9D9),
+                : AppColors.divider,
           ),
           boxShadow: _isHovered
               ? [
@@ -1859,7 +1989,7 @@ class _HoverStatCardState extends State<_HoverStatCard> {
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF171717),
+                      color: AppColors.textStrong,
                     ),
                   ),
                   Text(
@@ -1867,7 +1997,7 @@ class _HoverStatCardState extends State<_HoverStatCard> {
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                       fontSize: 11,
-                      color: Color(0xFF666666),
+                      color: AppColors.textMuted,
                     ),
                   ),
                 ],

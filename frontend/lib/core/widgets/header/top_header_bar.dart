@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:library_management_system/core/constants/app_colors.dart';
 
 import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
@@ -63,14 +64,14 @@ class TopHeaderBar extends StatelessWidget {
             child: Row(
               children: [
                 Container(
-                  padding: const EdgeInsets.all(7),
+                  padding: const EdgeInsets.all(1),
                   decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.18),
+                    color: AppColors.white.withValues(alpha: 0.18),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: libraryLogo == null
                       ? const Icon(Icons.menu_book,
-                          color: Colors.white, size: 20)
+                          color: AppColors.white, size: 20)
                       : ClipRRect(
                           borderRadius: BorderRadius.circular(6),
                           child: Image.memory(libraryLogo!,
@@ -87,7 +88,7 @@ class TopHeaderBar extends StatelessWidget {
                           : 'Library Management System',
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
-                        color: Colors.white,
+                        color: AppColors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
@@ -96,7 +97,7 @@ class TopHeaderBar extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 6, vertical: 1),
                       decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.2),
+                        color: AppColors.white.withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Text(
@@ -106,7 +107,7 @@ class TopHeaderBar extends StatelessWidget {
                                 ? 'Librarian Desk'
                                 : 'Reader Portal',
                         style: const TextStyle(
-                            color: Colors.white,
+                            color: AppColors.white,
                             fontSize: 9,
                             fontWeight: FontWeight.bold),
                       ),
@@ -134,13 +135,13 @@ class TopHeaderBar extends StatelessWidget {
                               horizontal: 14, vertical: 8),
                           decoration: BoxDecoration(
                             color:
-                                isSelected ? Colors.white : Colors.transparent,
+                                isSelected ? AppColors.white : AppColors.transparent,
                             borderRadius: BorderRadius.circular(8),
                             boxShadow: isSelected
                                 ? [
                                     BoxShadow(
                                       color:
-                                          Colors.black.withValues(alpha: 0.1),
+                                          AppColors.black.withValues(alpha: 0.1),
                                       blurRadius: 4,
                                       offset: const Offset(0, 2),
                                     ),
@@ -153,16 +154,16 @@ class TopHeaderBar extends StatelessWidget {
                                 item['icon'] as IconData,
                                 size: 16,
                                 color: isSelected
-                                    ? const Color(0xFFF25635)
-                                    : Colors.white.withValues(alpha: 0.85),
+                                    ? AppColors.primaryAccent
+                                    : AppColors.white.withValues(alpha: 0.85),
                               ),
                               const SizedBox(width: 6),
                               Text(
                                 item['title'] as String,
                                 style: TextStyle(
                                   color: isSelected
-                                      ? const Color(0xFFF25635)
-                                      : Colors.white.withValues(alpha: 0.9),
+                                      ? AppColors.primaryAccent
+                                      : AppColors.white.withValues(alpha: 0.9),
                                   fontSize: 12,
                                   fontWeight: isSelected
                                       ? FontWeight.bold
@@ -182,7 +183,7 @@ class TopHeaderBar extends StatelessWidget {
           PopupMenuButton<String>(
             offset: const Offset(0, 52),
             tooltip: 'Profile menu',
-            color: Colors.white,
+            color: AppColors.containerSurfaceElevated,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
@@ -234,14 +235,14 @@ class TopHeaderBar extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
               decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.1),
+                color: AppColors.white.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(999),
               ),
               child: Row(
                 children: [
                   CircleAvatar(
                     radius: 17,
-                    backgroundColor: Colors.white,
+                    backgroundColor: AppColors.white,
                     foregroundColor: AppColors.primary,
                     backgroundImage: avatarImage,
                     child: avatarImage == null
@@ -263,7 +264,7 @@ class TopHeaderBar extends StatelessWidget {
                         Text(
                           currentAccount!.name,
                           style: const TextStyle(
-                            color: Colors.white,
+                            color: AppColors.white,
                             fontSize: 11,
                             fontWeight: FontWeight.bold,
                           ),
@@ -271,7 +272,7 @@ class TopHeaderBar extends StatelessWidget {
                         Text(
                           currentAccount!.roleDisplayName,
                           style: const TextStyle(
-                            color: Colors.white70,
+                            color: AppColors.white70,
                             fontSize: 9,
                           ),
                         ),
@@ -281,7 +282,7 @@ class TopHeaderBar extends StatelessWidget {
                   const SizedBox(width: 4),
                   const Icon(
                     Icons.keyboard_arrow_down,
-                    color: Colors.white,
+                    color: AppColors.white,
                     size: 18,
                   ),
                 ],

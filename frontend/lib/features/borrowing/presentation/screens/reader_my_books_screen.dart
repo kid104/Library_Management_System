@@ -5,6 +5,7 @@ import '../../domain/usecases/get_my_books.dart';
 import '../../domain/usecases/renew_book.dart';
 import '../../domain/entities/borrowing_history_page.dart';
 import '../../domain/usecases/get_borrowing_history.dart';
+import 'package:library_management_system/core/constants/app_colors.dart';
 
 class ReaderMyBooksScreen extends StatefulWidget {
   final String studentId;
@@ -158,10 +159,10 @@ String _formatHistoryDate(String? value) {
     width: double.infinity,
     padding: const EdgeInsets.all(24),
     decoration: BoxDecoration(
-      color: Colors.white,
+      color: AppColors.containerSurface,
       borderRadius: BorderRadius.circular(16),
       border: Border.all(
-        color: const Color(0xFFD9D9D9),
+        color: AppColors.divider,
       ),
     ),
     child: Column(
@@ -173,12 +174,12 @@ String _formatHistoryDate(String? value) {
             Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: const Color(0xFFFBE2D9),
+                color: AppColors.accentSurface,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: const Icon(
                 Icons.history_rounded,
-                color: Color(0xFFF25635),
+                color: AppColors.primaryAccent,
                 size: 22,
               ),
             ),
@@ -192,7 +193,7 @@ String _formatHistoryDate(String? value) {
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF171717),
+                      color: AppColors.textStrong,
                     ),
                   ),
                   SizedBox(height: 4),
@@ -200,7 +201,7 @@ String _formatHistoryDate(String? value) {
                     'Books you have previously borrowed and returned.',
                     style: TextStyle(
                       fontSize: 12,
-                      color: Color(0xFF666666),
+                      color: AppColors.textMuted,
                     ),
                   ),
                 ],
@@ -211,7 +212,7 @@ String _formatHistoryDate(String? value) {
                 '${_historyPage!.records.length} books',
                 style: const TextStyle(
                   fontSize: 12,
-                  color: Color(0xFF666666),
+                  color: AppColors.textMuted,
                 ),
               ),
           ],
@@ -225,7 +226,7 @@ String _formatHistoryDate(String? value) {
             child: Padding(
               padding: EdgeInsets.all(24),
               child: CircularProgressIndicator(
-                color: Color(0xFFF25635),
+                color: AppColors.primaryAccent,
               ),
             ),
           )
@@ -237,7 +238,7 @@ String _formatHistoryDate(String? value) {
               children: [
                 const Icon(
                   Icons.error_outline,
-                  color: Colors.red,
+                  color: AppColors.red,
                   size: 36,
                 ),
                 const SizedBox(height: 8),
@@ -269,14 +270,14 @@ String _formatHistoryDate(String? value) {
                   Icon(
                     Icons.menu_book_outlined,
                     size: 42,
-                    color: Color(0xFFAAA898),
+                    color: AppColors.textSubtle,
                   ),
                   SizedBox(height: 10),
                   Text(
                     'No borrowing history yet.',
                     style: TextStyle(
                       fontSize: 14,
-                      color: Color(0xFF666666),
+                      color: AppColors.textMuted,
                     ),
                   ),
                 ],
@@ -298,7 +299,7 @@ String _formatHistoryDate(String? value) {
             _historyPage != null &&
             _historyPage!.records.isNotEmpty) ...[
           const SizedBox(height: 20),
-          const Divider(color: Color(0xFFE5E5E5)),
+          const Divider(color: AppColors.neutralBorder),
           const SizedBox(height: 12),
 
           Row(
@@ -308,7 +309,7 @@ String _formatHistoryDate(String? value) {
                 'Page ${_historyPageIndex + 1}',
                 style: const TextStyle(
                   fontSize: 12,
-                  color: Color(0xFF666666),
+                  color: AppColors.textMuted,
                 ),
               ),
 
@@ -328,7 +329,7 @@ String _formatHistoryDate(String? value) {
                     label: const Text('Previous'),
                     style: OutlinedButton.styleFrom(
                       foregroundColor:
-                          const Color(0xFFF25635),
+                          AppColors.primaryAccent,
                     ),
                   ),
 
@@ -349,10 +350,10 @@ String _formatHistoryDate(String? value) {
                     iconAlignment: IconAlignment.end,
                     style: ElevatedButton.styleFrom(
                       backgroundColor:
-                          const Color(0xFFF25635),
-                      foregroundColor: Colors.white,
+                          AppColors.primaryAccent,
+                      foregroundColor: AppColors.white,
                       disabledBackgroundColor:
-                          const Color(0xFFE5E5E5),
+                          AppColors.neutralBorder,
                       disabledForegroundColor:
                           const Color(0xFF999999),
                       elevation: 0,
@@ -377,7 +378,7 @@ Widget _buildHistoryCard(BorrowRecord book) {
         color: const Color(0xFFFAFAFA),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: const Color(0xFFE5E5E5),
+          color: AppColors.neutralBorder,
         ),
       ),
       child: Row(
@@ -410,7 +411,7 @@ Widget _buildHistoryCard(BorrowRecord book) {
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF171717),
+                    color: AppColors.textStrong,
                   ),
                 ),
 
@@ -420,7 +421,7 @@ Widget _buildHistoryCard(BorrowRecord book) {
                   'ISBN: ${book.isbn}',
                   style: const TextStyle(
                     fontSize: 11,
-                    color: Color(0xFF666666),
+                    color: AppColors.textMuted,
                   ),
                 ),
 
@@ -455,7 +456,7 @@ Widget _buildHistoryCard(BorrowRecord book) {
               vertical: 6,
             ),
             decoration: BoxDecoration(
-              color: const Color(0xFFECFDF5),
+              color: AppColors.successSurface,
               borderRadius: BorderRadius.circular(6),
             ),
             child: const Text(
@@ -463,7 +464,7 @@ Widget _buildHistoryCard(BorrowRecord book) {
               style: TextStyle(
                 fontSize: 10,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF059669),
+                color: AppColors.success,
               ),
             ),
           ),
@@ -491,7 +492,7 @@ Widget _historyDateItem(
         '$label: ${_formatHistoryDate(date)}',
         style: const TextStyle(
           fontSize: 11,
-          color: Color(0xFF666666),
+          color: AppColors.textMuted,
         ),
       ),
     ],
@@ -506,14 +507,14 @@ Widget _historyDateItem(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Color(0xFF514746),
-            Color(0xFFF25635),
+            AppColors.primary,
+            AppColors.primaryAccent,
           ],
         ),
       ),
       child: const Icon(
         Icons.book,
-        color: Colors.white70,
+        color: AppColors.white70,
         size: 28,
       ),
     );
@@ -563,7 +564,7 @@ Widget _historyDateItem(
       SnackBar(
         content: Text(message),
         backgroundColor:
-            isError ? const Color(0xFFDC2626) : const Color(0xFF059669),
+            isError ? AppColors.error : AppColors.success,
         behavior: SnackBarBehavior.floating,
       ),
     );
@@ -578,7 +579,7 @@ Widget _historyDateItem(
         child: Padding(
           padding: EdgeInsets.all(40),
           child: CircularProgressIndicator(
-            color: Color(0xFFF25635),
+            color: AppColors.primaryAccent,
           ),
         ),
       );
@@ -589,10 +590,10 @@ Widget _historyDateItem(
         width: double.infinity,
         padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.containerSurface,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: const Color(0xFFD9D9D9),
+            color: AppColors.divider,
           ),
         ),
         child: Column(
@@ -600,7 +601,7 @@ Widget _historyDateItem(
             const Icon(
               Icons.error_outline,
               size: 40,
-              color: Colors.red,
+              color: AppColors.red,
             ),
             const SizedBox(height: 12),
             const Text(
@@ -608,7 +609,7 @@ Widget _historyDateItem(
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF171717),
+                color: AppColors.textStrong,
               ),
             ),
             const SizedBox(height: 8),
@@ -617,7 +618,7 @@ Widget _historyDateItem(
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 12,
-                color: Color(0xFF666666),
+                color: AppColors.textMuted,
               ),
             ),
             const SizedBox(height: 12),
@@ -654,12 +655,12 @@ Widget _historyDateItem(
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFFBE2D9),
+                  color: AppColors.accentSurface,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: const Icon(
                   Icons.bookmark_outline,
-                  color: Color(0xFFF25635),
+                  color: AppColors.primaryAccent,
                   size: 24,
                 ),
               ),
@@ -673,7 +674,7 @@ Widget _historyDateItem(
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF171717),
+                        color: AppColors.textStrong,
                       ),
                     ),
                     SizedBox(height: 4),
@@ -681,7 +682,7 @@ Widget _historyDateItem(
                       'Manage your borrowed books, due dates and reading history.',
                       style: TextStyle(
                         fontSize: 12,
-                        color: Color(0xFF666666),
+                        color: AppColors.textMuted,
                       ),
                     ),
                   ],
@@ -696,7 +697,7 @@ Widget _historyDateItem(
     : _refreshAll,
                 icon: const Icon(
                   Icons.refresh,
-                  color: Color(0xFFF25635),
+                  color: AppColors.primaryAccent,
                 ),
               ),
             ],
@@ -716,12 +717,12 @@ Widget _historyDateItem(
             decoration: InputDecoration(
               hintText: 'Search by book title or ISBN...',
               hintStyle: const TextStyle(
-                color: Color(0xFFAAA898),
+                color: AppColors.textSubtle,
                 fontSize: 14,
               ),
               prefixIcon: const Icon(
                 Icons.search,
-                color: Color(0xFF666666),
+                color: AppColors.textMuted,
               ),
               suffixIcon: Padding(
                 padding: const EdgeInsets.all(4),
@@ -734,7 +735,7 @@ Widget _historyDateItem(
                         onPressed: _clearSearch,
                         icon: const Icon(
                           Icons.close,
-                          color: Color(0xFF666666),
+                          color: AppColors.textMuted,
                           size: 20,
                         ),
                       ),
@@ -752,8 +753,8 @@ Widget _historyDateItem(
                         ),
                       ),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFF25635),
-                        foregroundColor: Colors.white,
+                        backgroundColor: AppColors.primaryAccent,
+                        foregroundColor: AppColors.white,
                         elevation: 0,
                         padding: const EdgeInsets.symmetric(
                           horizontal: 18,
@@ -767,7 +768,7 @@ Widget _historyDateItem(
                 ),
               ),
               filled: true,
-              fillColor: Colors.white,
+              fillColor: AppColors.inputBackground,
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 16,
                 vertical: 18,
@@ -775,21 +776,21 @@ Widget _historyDateItem(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16),
                 borderSide: const BorderSide(
-                  color: Color(0xFFD9D9D9),
+                  color: AppColors.divider,
                   width: 1.5,
                 ),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16),
                 borderSide: const BorderSide(
-                  color: Color(0xFFD9D9D9),
+                  color: AppColors.divider,
                   width: 1.5,
                 ),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16),
                 borderSide: const BorderSide(
-                  color: Color(0xFFF25635),
+                  color: AppColors.primaryAccent,
                   width: 1.5,
                 ),
               ),
@@ -801,10 +802,8 @@ Widget _historyDateItem(
           // Borrowed books and tips panel.
           
               // Borrowed books list.
-              Expanded(
-                flex: 3,
-                child: _buildBorrowedBooksSection(),
-              ),
+              _buildBorrowedBooksSection(),
+              
 
               
 
@@ -828,10 +827,10 @@ _buildHistorySection(),
       width: double.infinity,
       padding: const EdgeInsets.all(32),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.containerSurface,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: const Color(0xFFD9D9D9),
+          color: AppColors.divider,
         ),
       ),
       child: Column(
@@ -839,7 +838,7 @@ _buildHistorySection(),
           const Icon(
             Icons.search_off,
             size: 42,
-            color: Color(0xFFAAA898),
+            color: AppColors.textSubtle,
           ),
           const SizedBox(height: 12),
           Text(
@@ -848,7 +847,7 @@ _buildHistorySection(),
                 : 'No books found for "$_searchQuery".',
             textAlign: TextAlign.center,
             style: const TextStyle(
-              color: Color(0xFF666666),
+              color: AppColors.textMuted,
               fontSize: 14,
             ),
           ),
@@ -898,7 +897,7 @@ _buildHistorySection(),
                 style: const TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w600,
-                  color: Color(0xFF171717),
+                  color: AppColors.textStrong,
                 ),
               ),
               const SizedBox(height: 5),
@@ -907,7 +906,7 @@ _buildHistorySection(),
                 style: const TextStyle(
                   fontSize: 11,
                   height: 1.5,
-                  color: Color(0xFF666666),
+                  color: AppColors.textMuted,
                 ),
               ),
             ],
@@ -954,12 +953,12 @@ _buildHistorySection(),
     }
 
     final Color statusColor = isOverdue || isUrgent
-        ? const Color(0xFFDC2626)
-        : const Color(0xFFDB482B);
+        ? AppColors.error
+        : AppColors.brandDeepAccent;
 
     final Color statusBackground = isOverdue || isUrgent
-        ? const Color(0xFFFEF2F2)
-        : const Color(0xFFFBE2D9);
+        ? AppColors.errorSurface
+        : AppColors.accentSurface;
 
     final String dueStatus;
     if (book.hasActiveReservation) {
@@ -991,10 +990,10 @@ _buildHistorySection(),
         child: Container(
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: AppColors.containerSurface,
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
-              color: const Color(0xFFD9D9D9),
+              color: AppColors.divider,
             ),
           ),
           child: Row(
@@ -1029,7 +1028,7 @@ _buildHistorySection(),
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 14,
-                        color: Color(0xFF171717),
+                        color: AppColors.textStrong,
                       ),
                     ),
                     const SizedBox(height: 5),
@@ -1037,7 +1036,7 @@ _buildHistorySection(),
                       'ISBN: ${book.isbn} · Borrowed: ${book.borrowDate}',
                       style: const TextStyle(
                         fontSize: 11,
-                        color: Color(0xFF666666),
+                        color: AppColors.textMuted,
                       ),
                     ),
                     const SizedBox(height: 9),
@@ -1093,10 +1092,10 @@ _buildHistorySection(),
               : 'Renew Loan',
 ),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFF25635),
-                        foregroundColor: Colors.white,
-                        disabledBackgroundColor: const Color(0xFFD9D9D9),
-                        disabledForegroundColor: const Color(0xFFAAA898),
+                        backgroundColor: AppColors.primaryAccent,
+                        foregroundColor: AppColors.white,
+                        disabledBackgroundColor: AppColors.divider,
+                        disabledForegroundColor: AppColors.textSubtle,
                         elevation: 0,
                         padding: const EdgeInsets.symmetric(
                           horizontal: 14,
@@ -1118,7 +1117,7 @@ _buildHistorySection(),
                     style: const TextStyle(
                       fontSize: 10,
                       fontWeight: FontWeight.w600,
-                      color: Color(0xFF666666),
+                      color: AppColors.textMuted,
                     ),
                   ),
 
@@ -1128,8 +1127,8 @@ _buildHistorySection(),
                     style: TextStyle(
                       fontSize: 10,
                       color: renewalsRemaining > 0
-                          ? const Color(0xFF059669)
-                          : const Color(0xFFDC2626),
+                          ? AppColors.success
+                          : AppColors.error,
                     ),
                   ),
                 ],
@@ -1182,7 +1181,7 @@ class _HoverLiftState extends State<_HoverLift> {
           boxShadow: _isHovered
               ? [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.06),
+                    color: AppColors.black.withValues(alpha: 0.06),
                     blurRadius: 14,
                     offset: const Offset(0, 6),
                   ),
@@ -1192,7 +1191,7 @@ class _HoverLiftState extends State<_HoverLift> {
         foregroundDecoration: BoxDecoration(
           borderRadius: BorderRadius.circular(widget.radius),
           border: Border.all(
-            color: _isHovered ? Colors.white : Colors.transparent,
+            color: _isHovered ? AppColors.white : AppColors.transparent,
             width: 1.5,
           ),
         ),

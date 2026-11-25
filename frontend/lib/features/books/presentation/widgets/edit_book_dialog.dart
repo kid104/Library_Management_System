@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:library_management_system/core/constants/app_colors.dart';
 
 import '../../domain/entities/book.dart';
 import '../../domain/usecases/update_book.dart';
@@ -20,8 +21,8 @@ class EditBookDialog extends StatefulWidget {
 }
 
 class _EditBookDialogState extends State<EditBookDialog> {
-  static const Color _primary = Color(0xFFF25635);
-  static const Color _dark = Color(0xFF514746);
+  static const Color _primary = AppColors.primaryAccent;
+  static const Color _dark = AppColors.primary;
 
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _titleController;
@@ -167,7 +168,7 @@ class _EditBookDialogState extends State<EditBookDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.dialogBackground,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
       title: const Text(
         'Edit Book',
@@ -258,7 +259,7 @@ class _EditBookDialogState extends State<EditBookDialog> {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       _saveError!,
-                      style: const TextStyle(color: Colors.red),
+                      style: const TextStyle(color: AppColors.red),
                     ),
                   ),
                 ],
@@ -276,7 +277,7 @@ class _EditBookDialogState extends State<EditBookDialog> {
           onPressed: _saving ? null : _save,
           style: ElevatedButton.styleFrom(
             backgroundColor: _primary,
-            foregroundColor: Colors.white,
+            foregroundColor: AppColors.white,
           ),
           child: Text(_saving ? 'Saving...' : 'Save changes'),
         ),

@@ -101,4 +101,28 @@ List<Notification> findStudentNotifications(
 List<Notification> findUnreadStudentNotifications(
         @Param("userId") Integer userId
 );
+    @Query("""
+        SELECT n FROM Notification n
+        WHERE n.recipientType IN ('LIBRARIAN', 'ALL')
+          AND (n.notificationType <> com.library.library_backend.entity.NotificationType.ANNOUNCEMENT
+               OR n.validUntil IS NULL OR n.validUntil >= CURRENT_DATE)
+          AND (n.notificationType <> com.library.library_backend.entity.NotificationType.ANNOUNCEMENT
+               OR n.recipientPositions = '*'
+               OR CONCAT(',', n.recipientPositions, ',') LIKE CONCAT('%,', :position, ',%'))
+        ORDER BY n.createdAt DESC
+        """)
+    List<Notification> findLibrarianNotificationsForPosition(@Param("position") String position);
+
+    @Query("""
+        SELECT n FROM Notification n
+        WHERE n.recipientType IN ('LIBRARIAN', 'ALL') AND n.isRead = false
+          AND (n.notificationType <> com.library.library_backend.entity.NotificationType.ANNOUNCEMENT
+               OR n.validUntil IS NULL OR n.validUntil >= CURRENT_DATE)
+          AND (n.notificationType <> com.library.library_backend.entity.NotificationType.ANNOUNCEMENT
+               OR n.recipientPositions = '*'
+               OR CONCAT(',', n.recipientPositions, ',') LIKE CONCAT('%,', :position, ',%'))
+        ORDER BY n.createdAt DESC
+        """)
+    List<Notification> findUnreadLibrarianNotificationsForPosition(@Param("position") String position);
+
 }

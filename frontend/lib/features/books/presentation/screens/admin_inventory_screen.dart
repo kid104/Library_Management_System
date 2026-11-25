@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:library_management_system/core/constants/app_colors.dart';
 
 import '../../domain/entities/book.dart';
 import '../../../library/presentation/providers/library_service.dart';
@@ -31,11 +32,11 @@ class _AdminInventoryScreenState extends State<AdminInventoryScreen> {
   int _currentPage = 0;
   static const int _pageSize = 10;
 
-  static const Color primaryBlue = Color(0xFFF25635);
-  static const Color darkBlue = Color(0xFFF25635);
-  static const Color textDark = Color(0xFF171717);
-  static const Color textMuted = Color(0xFF666666);
-  static const Color borderColor = Color(0xFFD9D9D9);
+  static const Color primaryBlue = AppColors.primaryAccent;
+  static const Color darkBlue = AppColors.primaryAccent;
+  static const Color textDark = AppColors.textStrong;
+  static const Color textMuted = AppColors.textMuted;
+  static const Color borderColor = AppColors.divider;
 
   @override
   void dispose() {
@@ -92,7 +93,7 @@ class _AdminInventoryScreenState extends State<AdminInventoryScreen> {
             content: Text(
               'No categories found. Please add a category first.',
             ),
-            backgroundColor: Colors.orange,
+            backgroundColor: AppColors.orange,
           ),
         );
         return;
@@ -117,7 +118,7 @@ class _AdminInventoryScreenState extends State<AdminInventoryScreen> {
                 children: [
                   Icon(
                     Icons.check_circle,
-                    color: Colors.white,
+                    color: AppColors.white,
                   ),
                   SizedBox(width: 10),
                   Expanded(
@@ -127,7 +128,7 @@ class _AdminInventoryScreenState extends State<AdminInventoryScreen> {
                   ),
                 ],
               ),
-              backgroundColor: Colors.green,
+              backgroundColor: AppColors.green,
               duration: Duration(seconds: 4),
               behavior: SnackBarBehavior.floating,
             ),
@@ -146,7 +147,7 @@ class _AdminInventoryScreenState extends State<AdminInventoryScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(error.message),
-          backgroundColor: Colors.red,
+          backgroundColor: AppColors.red,
         ),
       );
     } catch (error) {
@@ -155,7 +156,7 @@ class _AdminInventoryScreenState extends State<AdminInventoryScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Error: $error'),
-          backgroundColor: Colors.red,
+          backgroundColor: AppColors.red,
         ),
       );
     }
@@ -169,7 +170,7 @@ class _AdminInventoryScreenState extends State<AdminInventoryScreen> {
       if (categories.isEmpty) {
         _showInventoryMessage(
           'No categories found. Please add a category first.',
-          color: Colors.orange,
+          color: AppColors.orange,
         );
         return;
       }
@@ -194,15 +195,15 @@ class _AdminInventoryScreenState extends State<AdminInventoryScreen> {
         if (!mounted) return;
         _showInventoryMessage(
           'Book updated, but the inventory could not refresh: $error',
-          color: Colors.orange,
+          color: AppColors.orange,
         );
       }
     } on ApiException catch (error) {
       if (!mounted) return;
-      _showInventoryMessage(error.message, color: Colors.red);
+      _showInventoryMessage(error.message, color: AppColors.red);
     } catch (error) {
       if (!mounted) return;
-      _showInventoryMessage('Could not edit book: $error', color: Colors.red);
+      _showInventoryMessage('Could not edit book: $error', color: AppColors.red);
     }
   }
 
@@ -223,8 +224,8 @@ class _AdminInventoryScreenState extends State<AdminInventoryScreen> {
           ElevatedButton(
             onPressed: () => Navigator.pop(dialogContext, true),
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red,
-              foregroundColor: Colors.white,
+              backgroundColor: AppColors.red,
+              foregroundColor: AppColors.white,
             ),
             child: const Text('Delete permanently'),
           ),
@@ -246,16 +247,16 @@ class _AdminInventoryScreenState extends State<AdminInventoryScreen> {
         if (!mounted) return;
         _showInventoryMessage(
           'Book deleted, but the inventory could not refresh: $error',
-          color: Colors.orange,
+          color: AppColors.orange,
         );
       }
     } catch (error) {
       if (!mounted) return;
-      _showInventoryMessage('Could not delete book: $error', color: Colors.red);
+      _showInventoryMessage('Could not delete book: $error', color: AppColors.red);
     }
   }
 
-  void _showInventoryMessage(String message, {Color color = Colors.green}) {
+  void _showInventoryMessage(String message, {Color color = AppColors.green}) {
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(
@@ -344,7 +345,7 @@ class _AdminInventoryScreenState extends State<AdminInventoryScreen> {
                     width: 48,
                     height: 48,
                     decoration: BoxDecoration(
-                      color: const Color(0xFFFBE2D9),
+                      color: AppColors.accentSurface,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: const Icon(
@@ -413,7 +414,7 @@ class _AdminInventoryScreenState extends State<AdminInventoryScreen> {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: AppColors.containerSurface,
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: borderColor),
             ),
@@ -437,7 +438,7 @@ class _AdminInventoryScreenState extends State<AdminInventoryScreen> {
                     prefixIcon: const Icon(
                       Icons.search,
                       size: 20,
-                      color: Color(0xFFAAA898),
+                      color: AppColors.textSubtle,
                     ),
                     suffixIcon: _searchController.text.isNotEmpty
                         ? IconButton(
@@ -499,8 +500,8 @@ class _AdminInventoryScreenState extends State<AdminInventoryScreen> {
                   count: totalBooks.toString(),
                   subtitle: 'titles in collection',
                   icon: Icons.book,
-                  color: const Color(0xFFF25635),
-                  bg: const Color(0xFFFBE2D9),
+                  color: AppColors.primaryAccent,
+                  bg: AppColors.accentSurface,
                   selected: _selectedInventoryFilter == 'all',
                   onTap: () => _selectInventoryFilter('all'),
                 ),
@@ -510,7 +511,7 @@ class _AdminInventoryScreenState extends State<AdminInventoryScreen> {
                   subtitle: 'available for loan',
                   icon: Icons.check_circle_outline,
                   color: const Color(0xFF10B981),
-                  bg: const Color(0xFFECFDF5),
+                  bg: AppColors.successSurface,
                   selected: _selectedInventoryFilter == 'available',
                   onTap: () => _selectInventoryFilter('available'),
                 ),
@@ -555,7 +556,7 @@ class _AdminInventoryScreenState extends State<AdminInventoryScreen> {
           Container(
             width: double.infinity,
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: AppColors.containerSurface,
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: borderColor),
             ),
@@ -603,14 +604,14 @@ class _AdminInventoryScreenState extends State<AdminInventoryScreen> {
                       children: [
                         const Icon(
                           Icons.error_outline,
-                          color: Colors.red,
+                          color: AppColors.red,
                           size: 40,
                         ),
                         const SizedBox(height: 12),
                         Text(
                           'Could not load books: ${libraryService.booksError}',
                           textAlign: TextAlign.center,
-                          style: const TextStyle(color: Colors.red),
+                          style: const TextStyle(color: AppColors.red),
                         ),
                         const SizedBox(height: 12),
                         ElevatedButton.icon(
@@ -631,7 +632,7 @@ class _AdminInventoryScreenState extends State<AdminInventoryScreen> {
                         const Icon(
                           Icons.menu_book_outlined,
                           size: 48,
-                          color: Color(0xFFAAA898),
+                          color: AppColors.textSubtle,
                         ),
                         const SizedBox(height: 12),
                         Text(
@@ -668,7 +669,7 @@ class _AdminInventoryScreenState extends State<AdminInventoryScreen> {
                     alignment: Alignment.centerLeft,
                     child: DataTable(
                       headingRowColor: WidgetStateProperty.all(
-                        const Color(0xFFFBF1E4),
+                        AppColors.background,
                       ),
                       columns: const [
                         DataColumn(
@@ -798,7 +799,7 @@ class _AdminInventoryScreenState extends State<AdminInventoryScreen> {
                                   style: TextStyle(
                                     color: isAvailable
                                         ? const Color(0xFF166534)
-                                        : const Color(0xFFB91C1C),
+                                        : AppColors.errorDark,
                                     fontSize: 11,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -823,7 +824,7 @@ class _AdminInventoryScreenState extends State<AdminInventoryScreen> {
                                     onPressed: () => _deleteBook(book),
                                     icon: const Icon(
                                       Icons.delete_outline,
-                                      color: Colors.red,
+                                      color: AppColors.red,
                                     ),
                                   ),
                                 ],
@@ -960,16 +961,16 @@ class _InteractiveStatCardState extends State<_InteractiveStatCard> {
           0,
         ),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.containerSurface,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: highlighted ? Colors.white : const Color(0xFFD9D9D9),
+            color: highlighted ? AppColors.white : AppColors.divider,
             width: 1,
           ),
           boxShadow: highlighted
               ? [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.06),
+                    color: AppColors.black.withValues(alpha: 0.06),
                     blurRadius: 10,
                     offset: const Offset(0, 4),
                   ),
@@ -977,7 +978,7 @@ class _InteractiveStatCardState extends State<_InteractiveStatCard> {
               : [],
         ),
         child: Material(
-          color: Colors.transparent,
+          color: AppColors.transparent,
           borderRadius: BorderRadius.circular(12),
           child: InkWell(
             borderRadius: BorderRadius.circular(12),
@@ -1008,7 +1009,7 @@ class _InteractiveStatCardState extends State<_InteractiveStatCard> {
                           widget.title,
                           style: const TextStyle(
                             fontSize: 11,
-                            color: Color(0xFFAAA898),
+                            color: AppColors.textSubtle,
                           ),
                         ),
                         const SizedBox(height: 2),
@@ -1024,7 +1025,7 @@ class _InteractiveStatCardState extends State<_InteractiveStatCard> {
                           widget.subtitle,
                           style: const TextStyle(
                             fontSize: 10,
-                            color: Color(0xFFAAA898),
+                            color: AppColors.textSubtle,
                           ),
                         ),
                       ],
@@ -1063,8 +1064,8 @@ class _HoverActionButton extends StatefulWidget {
     required this.label,
     required this.icon,
     required this.onPressed,
-  })  : backgroundColor = const Color(0xFFF25635),
-        foregroundColor = Colors.white;
+  })  : backgroundColor = AppColors.primaryAccent,
+        foregroundColor = AppColors.white;
 
   @override
   State<_HoverActionButton> createState() => _HoverActionButtonState();
@@ -1097,7 +1098,7 @@ class _HoverActionButtonState extends State<_HoverActionButton> {
           boxShadow: _isHovered
               ? [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.10),
+                    color: AppColors.black.withValues(alpha: 0.10),
                     blurRadius: 10,
                     offset: const Offset(0, 4),
                   ),
@@ -1105,7 +1106,7 @@ class _HoverActionButtonState extends State<_HoverActionButton> {
               : [],
         ),
         child: Material(
-          color: Colors.transparent,
+          color: AppColors.transparent,
           borderRadius: BorderRadius.circular(8),
           child: InkWell(
             borderRadius: BorderRadius.circular(8),

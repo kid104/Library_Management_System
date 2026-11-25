@@ -300,7 +300,7 @@ Future<void> _changeProfilePhoto() async {
           content: Text(message),
           duration: const Duration(seconds: 60),
           backgroundColor:
-              isError ? Colors.red.shade700 : Colors.green.shade700,
+              isError ? AppColors.red : AppColors.green,
           behavior: SnackBarBehavior.floating,
         ),
       );
@@ -449,7 +449,7 @@ Future<void> _changeProfilePhoto() async {
       case UserRole.librarian:
         switch (_selectedNavIndex) {
           case 1:
-            return const LibrarianNotificationsScreen();
+            return LibrarianNotificationsScreen(position: _currentAccount?.title ?? '');
           case 2:
             return const AdminInventoryScreen();
           case 3:

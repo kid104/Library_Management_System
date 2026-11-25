@@ -11,8 +11,10 @@ class NotificationRemoteDataSource {
   // Load notifications addressed to librarians.
   Future<List<LibraryNotificationModel>> getNotifications({
     bool unread = false,
+    String position = '',
   }) async {
-    final endpoint = unread ? '$baseUrl/librarian/unread' : '$baseUrl/librarian';
+    final path = unread ? 'librarian/unread' : 'librarian';
+    final endpoint = '$baseUrl/$path?position=${Uri.encodeQueryComponent(position)}';
 
     final response = await http.get(Uri.parse(endpoint));
 

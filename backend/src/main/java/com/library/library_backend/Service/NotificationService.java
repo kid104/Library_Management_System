@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.stream.Collectors;
+import com.library.library_backend.dto.CreateAnnouncementRequest;
 
 import com.library.library_backend.entity.Notification;
 import com.library.library_backend.entity.NotificationType;
@@ -42,14 +44,34 @@ public class NotificationService {
     }
 
     // Get librarian notifications
-    public List<Notification> getLibrarianNotifications() {
-        return notificationRepository.findLibrarianNotifications();
+    public List<Notification> getLibrarianNotifications(String position) {
+        return notificationRepository.findLibrarianNotificationsForPosition(position);
     }
 
     // Get unread librarian notifications
-    public List<Notification> getUnreadLibrarianNotifications() {
-        return notificationRepository
-                .findUnreadLibrarianNotifications();
+    public List<Notification> getUnreadLibrarianNotifications(String position) {
+        return notificationRepository.findUnreadLibrarianNotificationsForPosition(position);
+    }
+
+    @Transactional
+    public Notification createAnnouncement(CreateAnnouncementRequest request) {
+        if (request.title() == null || request.title().isBlank() || request.title().length() > 150)
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A title (maximum 150 characters) is required");
+        if (request.message() == null || request.message().isBlank())
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Announcement body is required");
+        if (request.validUntil() == null || request.validUntil().isBefore(LocalDate.now()))
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Expiry date must be today or later");
+        if (!request.forAll() && (request.positions() == null || request.positions().isEmpty()))
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Select at least one librarian position or For All");
+        Notification n = new Notification();
+        n.setTitle(request.title().trim());
+        n.setMessage(request.message().trim());
+        n.setNotificationType(NotificationType.ANNOUNCEMENT);
+        n.setRecipientType("LIBRARIAN");
+        n.setRecipientPositions(request.forAll() ? "*" : request.positions().stream().filter(v -> v != null && !v.isBlank()).distinct().collect(Collectors.joining(",")));
+        n.setValidUntil(request.validUntil());
+        n.setIsRead(false);
+        return notificationRepository.save(n);
     }
 
     // Create a notification

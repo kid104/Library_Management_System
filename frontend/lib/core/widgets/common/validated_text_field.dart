@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:library_management_system/core/constants/app_colors.dart';
 
 import 'form_validators.dart';
 import 'required_label.dart';
@@ -114,26 +115,26 @@ class ValidatedTextField extends StatelessWidget {
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(
-            color: Color(0xFFD5D2C7),
+            color: AppColors.border,
           ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(
-            color: Color(0xFFF25635),
+            color: AppColors.primaryAccent,
             width: 1.5,
           ),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(
-            color: Colors.red,
+            color: AppColors.red,
           ),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(
-            color: Colors.red,
+            color: AppColors.red,
             width: 1.5,
           ),
         ),

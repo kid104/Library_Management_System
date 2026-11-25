@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:library_management_system/core/constants/app_colors.dart';
 
 import '../../domain/entities/reservation_record.dart';
 import '../../../library/presentation/providers/library_service.dart';
@@ -176,7 +177,7 @@ case 'COMPLETED':
               onPressed: () => Navigator.pop(dialogContext, true),
               child: const Text(
                 'Cancel Hold',
-                style: TextStyle(color: Color(0xFFDC2626)),
+                style: TextStyle(color: AppColors.error),
               ),
             ),
           ],
@@ -213,7 +214,7 @@ case 'COMPLETED':
           content: Text(
             'Reservation for "${r.bookTitle}" cancelled successfully.',
           ),
-          backgroundColor: const Color(0xFF059669),
+          backgroundColor: AppColors.success,
         ),
       );
     } catch (e) {
@@ -226,7 +227,7 @@ case 'COMPLETED':
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Could not cancel reservation: $e'),
-          backgroundColor: Colors.red,
+          backgroundColor: AppColors.red,
         ),
       );
     }
@@ -249,12 +250,12 @@ case 'COMPLETED':
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFFBE2D9),
+                  color: AppColors.accentSurface,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: const Icon(
                   Icons.calendar_month_outlined,
-                  color: Color(0xFFF25635),
+                  color: AppColors.primaryAccent,
                   size: 24,
                 ),
               ),
@@ -268,14 +269,14 @@ case 'COMPLETED':
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF171717),
+                        color: AppColors.textStrong,
                       ),
                     ),
                     Text(
                       'Manage active book holds, queue rankings, and pickup notifications',
                       style: TextStyle(
                         fontSize: 12,
-                        color: Color(0xFF666666),
+                        color: AppColors.textMuted,
                       ),
                     ),
                   ],
@@ -286,7 +287,7 @@ case 'COMPLETED':
                 tooltip: 'Refresh reservations',
                 icon: const Icon(
                   Icons.refresh,
-                  color: Color(0xFFF25635),
+                  color: AppColors.primaryAccent,
                 ),
               ),
             ],
@@ -300,7 +301,7 @@ case 'COMPLETED':
               child: Padding(
                 padding: EdgeInsets.all(40),
                 child: CircularProgressIndicator(
-                  color: Color(0xFFF25635),
+                  color: AppColors.primaryAccent,
                 ),
               ),
             )
@@ -311,10 +312,10 @@ case 'COMPLETED':
               width: double.infinity,
               padding: const EdgeInsets.all(28),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppColors.containerSurface,
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(
-                  color: const Color(0xFFFCA5A5),
+                  color: AppColors.errorBorder,
                 ),
               ),
               child: Column(
@@ -322,7 +323,7 @@ case 'COMPLETED':
                   const Icon(
                     Icons.error_outline,
                     size: 40,
-                    color: Color(0xFFDC2626),
+                    color: AppColors.error,
                   ),
                   const SizedBox(height: 12),
                   const Text(
@@ -330,7 +331,7 @@ case 'COMPLETED':
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF171717),
+                      color: AppColors.textStrong,
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -339,7 +340,7 @@ case 'COMPLETED':
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontSize: 12,
-                      color: Color(0xFF666666),
+                      color: AppColors.textMuted,
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -348,8 +349,8 @@ case 'COMPLETED':
                     icon: const Icon(Icons.refresh),
                     label: const Text('Try Again'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFF25635),
-                      foregroundColor: Colors.white,
+                      backgroundColor: AppColors.primaryAccent,
+                      foregroundColor: AppColors.white,
                     ),
                   ),
                 ],
@@ -363,10 +364,10 @@ case 'COMPLETED':
               padding: const EdgeInsets.all(36),
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppColors.containerSurface,
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(
-                  color: const Color(0xFFD9D9D9),
+                  color: AppColors.divider,
                 ),
               ),
               child: const Column(
@@ -374,14 +375,14 @@ case 'COMPLETED':
                   Icon(
                     Icons.inbox_outlined,
                     size: 40,
-                    color: Color(0xFFAAA898),
+                    color: AppColors.textSubtle,
                   ),
                   SizedBox(height: 10),
                   Text(
                     'No active reservations right now.',
                     style: TextStyle(
                       fontSize: 14,
-                      color: Color(0xFF666666),
+                      color: AppColors.textMuted,
                     ),
                   ),
                 ],
@@ -417,10 +418,10 @@ case 'COMPLETED':
         child: Container(
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: AppColors.containerSurface,
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
-              color: const Color(0xFFD9D9D9),
+              color: AppColors.divider,
             ),
           ),
           child: Row(
@@ -428,12 +429,12 @@ case 'COMPLETED':
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFECFDF5),
+                  color: AppColors.successSurface,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: const Icon(
                   Icons.check_circle_outline,
-                  color: Color(0xFF059669),
+                  color: AppColors.success,
                   size: 28,
                 ),
               ),
@@ -452,7 +453,7 @@ case 'COMPLETED':
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 14,
-                            color: Color(0xFF171717),
+                            color: AppColors.textStrong,
                           ),
                         ),
                         Container(
@@ -461,7 +462,7 @@ case 'COMPLETED':
                             vertical: 2,
                           ),
                           decoration: BoxDecoration(
-                            color: const Color(0xFFECFDF5),
+                            color: AppColors.successSurface,
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: Text(
@@ -469,7 +470,7 @@ case 'COMPLETED':
                             style: const TextStyle(
                               fontSize: 10,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFF059669),
+                              color: AppColors.success,
                             ),
                           ),
                         ),
@@ -480,7 +481,7 @@ case 'COMPLETED':
                       'Author: ${r.author} · Reserved On: ${r.reservedDate}',
                       style: const TextStyle(
                         fontSize: 11,
-                        color: Color(0xFF666666),
+                        color: AppColors.textMuted,
                       ),
                     ),
                     const SizedBox(height: 4),
@@ -491,7 +492,7 @@ case 'COMPLETED':
     style: const TextStyle(
       fontSize: 11,
       fontWeight: FontWeight.w600,
-      color: Color(0xFFF25635),
+      color: AppColors.primaryAccent,
     ),
   ),
   const SizedBox(height: 4),
@@ -500,7 +501,7 @@ case 'COMPLETED':
     style: const TextStyle(
       fontSize: 11,
       fontWeight: FontWeight.w600,
-      color: Color(0xFF059669),
+      color: AppColors.success,
     ),
   ),
 ] else if (r.status.toUpperCase() == 'WAITING') ...[
@@ -510,7 +511,7 @@ case 'COMPLETED':
     style: const TextStyle(
       fontSize: 11,
       fontWeight: FontWeight.w600,
-      color: Color(0xFF666666),
+      color: AppColors.textMuted,
     ),
   ),
   const SizedBox(height: 4),
@@ -519,7 +520,7 @@ case 'COMPLETED':
     '${_formatEstimatedAvailability(r.estimatedAvailableAt)}',
     style: const TextStyle(
       fontSize: 11,
-      color: Color(0xFF666666),
+      color: AppColors.textMuted,
     ),
   ),
 ] else if (r.status.toUpperCase() == 'EXPIRED')
@@ -528,7 +529,7 @@ case 'COMPLETED':
     style: TextStyle(
       fontSize: 11,
       fontWeight: FontWeight.w600,
-      color: Color(0xFFDC2626),
+      color: AppColors.error,
     ),
   ),
                   ],
@@ -539,9 +540,9 @@ case 'COMPLETED':
                 OutlinedButton(
                   onPressed: isCancelling ? null : () => _cancelReservation(r),
                   style: OutlinedButton.styleFrom(
-                    foregroundColor: const Color(0xFFDC2626),
+                    foregroundColor: AppColors.error,
                     side: const BorderSide(
-                      color: Color(0xFFFCA5A5),
+                      color: AppColors.errorBorder,
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -605,7 +606,7 @@ class _HoverLiftState extends State<_HoverLift> {
           boxShadow: _isHovered
               ? [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.06),
+                    color: AppColors.black.withValues(alpha: 0.06),
                     blurRadius: 14,
                     offset: const Offset(0, 6),
                   ),
@@ -615,7 +616,7 @@ class _HoverLiftState extends State<_HoverLift> {
         foregroundDecoration: BoxDecoration(
           borderRadius: BorderRadius.circular(widget.radius),
           border: Border.all(
-            color: _isHovered ? Colors.white : Colors.transparent,
+            color: _isHovered ? AppColors.white : AppColors.transparent,
             width: 1.5,
           ),
         ),

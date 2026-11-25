@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:library_management_system/core/constants/app_colors.dart';
 
 import '../../domain/entities/library_notification.dart';
 import '../../../../core/di/injector.dart';
@@ -6,7 +7,8 @@ import '../../domain/usecases/get_notifications.dart';
 import '../../domain/usecases/mark_notification_as_read.dart';
 
 class LibrarianNotificationsScreen extends StatefulWidget {
-  const LibrarianNotificationsScreen({super.key});
+  final String position;
+  const LibrarianNotificationsScreen({super.key, required this.position});
 
   @override
   State<LibrarianNotificationsScreen> createState() =>
@@ -15,9 +17,9 @@ class LibrarianNotificationsScreen extends StatefulWidget {
 
 class _LibrarianNotificationsScreenState
     extends State<LibrarianNotificationsScreen> {
-  static const Color primaryBlue = Color(0xFFF25635);
-  static const Color filterColor = Color(0xFF514746);
-  static const Color pageBackground = Color(0xFFFBF1E4);
+  static const Color primaryBlue = AppColors.primaryAccent;
+  static const Color filterColor = AppColors.primary;
+  static const Color pageBackground = AppColors.background;
 
   final GetNotifications _getNotificationsUseCase = injector.getNotifications;
 
@@ -44,18 +46,21 @@ class _LibrarianNotificationsScreenState
     });
 
     try {
-      final notifications = await _getNotificationsUseCase();
+      final notifications = await _getNotificationsUseCase(position: widget.position);
 
       if (!mounted) return;
 
       setState(() {
         _notifications = notifications
             .where((notification) {
+              final today = DateTime.now();
+              final expiry = notification.validUntil;
+              if (notification.notificationType == 'ANNOUNCEMENT') {
+                return expiry == null || !DateTime(expiry.year, expiry.month, expiry.day).isBefore(DateTime(today.year, today.month, today.day));
+              }
               final createdAt = notification.createdAt;
               return createdAt != null &&
-                  !createdAt.isBefore(
-                    DateTime.now().subtract(const Duration(days: 7)),
-                  ) &&
+                  !createdAt.isBefore(DateTime.now().subtract(const Duration(days: 7))) &&
                   !createdAt.isAfter(DateTime.now());
             })
             .toList()
@@ -150,11 +155,11 @@ class _LibrarianNotificationsScreenState
       case NotificationType.overdue:
         return const Color(0xFFEF4444);
       case NotificationType.dueSoon:
-        return const Color(0xFFF25635);
+        return AppColors.primaryAccent;
       case NotificationType.reservation:
         return const Color(0xFF059E83);
       case NotificationType.announcement:
-        return const Color(0xFFF25635);
+        return AppColors.primaryAccent;
     }
   }
 
@@ -163,11 +168,11 @@ class _LibrarianNotificationsScreenState
       case NotificationType.overdue:
         return const Color(0xFFFFECEF);
       case NotificationType.dueSoon:
-        return const Color(0xFFFBE2D9);
+        return AppColors.accentSurface;
       case NotificationType.reservation:
         return const Color(0xFFE0F7F0);
       case NotificationType.announcement:
-        return const Color(0xFFFBE2D9);
+        return AppColors.accentSurface;
     }
   }
 
@@ -275,7 +280,7 @@ class _LibrarianNotificationsScreenState
               Text(
                 _timeAgo(notification.createdAt),
                 style: const TextStyle(
-                  color: Colors.grey,
+                  color: AppColors.grey,
                   fontSize: 12,
                 ),
               ),
@@ -327,7 +332,7 @@ class _LibrarianNotificationsScreenState
                       const Icon(
                         Icons.cloud_off,
                         size: 48,
-                        color: Colors.grey,
+                        color: AppColors.grey,
                       ),
                       const SizedBox(height: 12),
                       const Text(
@@ -363,7 +368,7 @@ class _LibrarianNotificationsScreenState
                       child: Text(
                         'Notifications',
                         style: TextStyle(
-                          color: Color(0xFF514746),
+                          color: AppColors.primary,
                           fontSize: 28,
                           fontWeight: FontWeight.bold,
                         ),
@@ -384,7 +389,7 @@ class _LibrarianNotificationsScreenState
                   'Stay updated with upcoming due dates, overdue books, '
                   'reservations, and library announcements.',
                   style: TextStyle(
-                    color: Color(0xFFF25635),
+                    color: AppColors.primaryAccent,
                     fontSize: 14,
                   ),
                 ),
@@ -398,7 +403,7 @@ class _LibrarianNotificationsScreenState
                       return Padding(
                         padding: const EdgeInsets.only(right: 10),
                         child: Material(
-                          color: selected ? filterColor : Colors.white,
+                          color: selected ? filterColor : AppColors.white,
                           borderRadius: BorderRadius.circular(9),
                           child: InkWell(
                             borderRadius: BorderRadius.circular(9),
@@ -427,14 +432,14 @@ class _LibrarianNotificationsScreenState
                                     filter.$2,
                                     size: 17,
                                     color:
-                                        selected ? Colors.white : filterColor,
+                                        selected ? AppColors.white : filterColor,
                                   ),
                                   const SizedBox(width: 8),
                                   Text(
                                     '${filter.$1} (${_countFor(filter.$1)})',
                                     style: TextStyle(
                                       color:
-                                          selected ? Colors.white : filterColor,
+                                          selected ? AppColors.white : filterColor,
                                       fontWeight: selected
                                           ? FontWeight.w600
                                           : FontWeight.normal,
@@ -458,7 +463,7 @@ class _LibrarianNotificationsScreenState
                         Icon(
                           Icons.notifications_off_outlined,
                           size: 48,
-                          color: Colors.grey,
+                          color: AppColors.grey,
                         ),
                         SizedBox(height: 12),
                         Text('No notifications in this category.'),
@@ -480,11 +485,11 @@ class _LibrarianNotificationsScreenState
                         child: Card(
                           margin: EdgeInsets.zero,
                           elevation: 0,
-                          color: Colors.white,
+                          color: AppColors.containerSurface,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                             side: const BorderSide(
-                              color: Color(0xFFFBE2D9),
+                              color: AppColors.accentSurface,
                             ),
                           ),
                           child: InkWell(
@@ -524,7 +529,7 @@ class _LibrarianNotificationsScreenState
                                         Text(
                                           notification.message,
                                           style: const TextStyle(
-                                            color: Color(0xFFF25635),
+                                            color: AppColors.primaryAccent,
                                             fontSize: 13,
                                             height: 1.4,
                                           ),
@@ -534,7 +539,7 @@ class _LibrarianNotificationsScreenState
                                           Text(
                                             notification.details!,
                                             style: const TextStyle(
-                                              color: Color(0xFFF25635),
+                                              color: AppColors.primaryAccent,
                                               fontSize: 12,
                                               height: 1.4,
                                             ),
@@ -570,7 +575,7 @@ class _LibrarianNotificationsScreenState
                                       Text(
                                         _timeAgo(notification.createdAt),
                                         style: const TextStyle(
-                                          color: Color(0xFFF25635),
+                                          color: AppColors.primaryAccent,
                                           fontSize: 11,
                                         ),
                                       ),
@@ -609,7 +614,7 @@ class _LibrarianNotificationsScreenState
                         Text(
                           'Page ${_currentPage + 1} of ${(_filteredNotifications.length / _pageSize).ceil()}',
                           style: const TextStyle(
-                            color: Color(0xFF666666),
+                            color: AppColors.textMuted,
                             fontSize: 12,
                           ),
                         ),
@@ -680,7 +685,7 @@ class _HoverLiftState extends State<_HoverLift> {
           boxShadow: _isHovered
               ? [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.06),
+                    color: AppColors.black.withValues(alpha: 0.06),
                     blurRadius: 14,
                     offset: const Offset(0, 6),
                   ),
@@ -690,7 +695,7 @@ class _HoverLiftState extends State<_HoverLift> {
         foregroundDecoration: BoxDecoration(
           borderRadius: BorderRadius.circular(widget.radius),
           border: Border.all(
-            color: _isHovered ? Colors.white : Colors.transparent,
+            color: _isHovered ? AppColors.white : AppColors.transparent,
             width: 1.5,
           ),
         ),

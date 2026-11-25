@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../data/datasources/settings_remote_data_source.dart';
 import 'package:provider/provider.dart';
+import 'package:library_management_system/core/constants/app_colors.dart';
 
 import '../../../../core/di/injector.dart';
 import '../../../library/presentation/providers/library_service.dart';
@@ -37,10 +38,10 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
   bool _isSaving = false;
   String? _errorMessage;
 
-  static const Color primaryBlue = Color(0xFFF25635);
-  static const Color textDark = Color(0xFF171717);
-  static const Color textMuted = Color(0xFF666666);
-  static const Color borderColor = Color(0xFFD9D9D9);
+  static const Color primaryBlue = AppColors.primaryAccent;
+  static const Color textDark = AppColors.textStrong;
+  static const Color textMuted = AppColors.textMuted;
+  static const Color borderColor = AppColors.divider;
 
   @override
   void initState() {
@@ -258,13 +259,13 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
             children: [
               Icon(
                 isError ? Icons.error_outline : Icons.check_circle_outline,
-                color: Colors.white,
+                color: AppColors.white,
               ),
               const SizedBox(width: 10),
               Expanded(child: Text(message)),
             ],
           ),
-          backgroundColor: isError ? Colors.red : const Color(0xFF059669),
+          backgroundColor: isError ? AppColors.red : AppColors.success,
           duration: const Duration(seconds: 3),
           behavior: SnackBarBehavior.floating,
         ),
@@ -511,7 +512,7 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
         Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: const Color(0xFFFBE2D9),
+            color: AppColors.accentSurface,
             borderRadius: BorderRadius.circular(12),
           ),
           child: const Icon(
@@ -562,7 +563,7 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
             const Icon(
               Icons.cloud_off,
               size: 48,
-              color: Colors.red,
+              color: AppColors.red,
             ),
             const SizedBox(height: 12),
             const Text(
@@ -577,7 +578,7 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
               _errorMessage!,
               textAlign: TextAlign.center,
               style: const TextStyle(
-                color: Colors.red,
+                color: AppColors.red,
                 fontSize: 12,
               ),
             ),
@@ -606,12 +607,12 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
       width: double.infinity,
       padding: const EdgeInsets.all(22),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.containerSurface,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: borderColor),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.025),
+            color: AppColors.black.withValues(alpha: 0.025),
             blurRadius: 8,
             offset: const Offset(0, 3),
           ),
@@ -877,12 +878,12 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
       width: double.infinity,
       padding: const EdgeInsets.all(22),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.containerSurface,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: borderColor),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.025),
+            color: AppColors.black.withValues(alpha: 0.025),
             blurRadius: 8,
             offset: const Offset(0, 3),
           ),
@@ -968,7 +969,7 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
               label: 'Reload Saved Settings',
               icon: Icons.refresh,
               onPressed: _isSaving ? () {} : _loadSettings,
-              backgroundColor: const Color(0xFFFBE2D9),
+              backgroundColor: AppColors.accentSurface,
               foregroundColor: primaryBlue,
             ),
           ),
@@ -1029,8 +1030,8 @@ class _HoverActionButton extends StatefulWidget {
     required this.label,
     required this.icon,
     required this.onPressed,
-    this.backgroundColor = const Color(0xFFF25635),
-    this.foregroundColor = Colors.white,
+    this.backgroundColor = AppColors.primaryAccent,
+    this.foregroundColor = AppColors.white,
   });
 
   @override
@@ -1076,7 +1077,7 @@ class _HoverActionButtonState extends State<_HoverActionButton> {
               : [],
         ),
         child: Material(
-          color: Colors.transparent,
+          color: AppColors.transparent,
           child: InkWell(
             borderRadius: BorderRadius.circular(9),
             onTap: widget.onPressed,

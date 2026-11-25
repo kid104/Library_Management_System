@@ -122,7 +122,7 @@ class _LandingScreenState extends State<LandingScreen>
           }).toList();
 
     return Scaffold(
-      backgroundColor: const Color(0xFFFBF1E4),
+      backgroundColor: AppColors.background,
 
       // APP BAR
       appBar: PreferredSize(
@@ -136,13 +136,13 @@ class _LandingScreenState extends State<LandingScreen>
               Row(
                 children: [
                   Container(
-                    padding: const EdgeInsets.all(7),
+                    padding: const EdgeInsets.all(2),
                     decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.2),
+                      color: AppColors.white.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: libraryService.settings.libraryLogo == null
-                        ? const Icon(Icons.menu_book, color: Colors.white, size: 22)
+                        ? const Icon(Icons.menu_book, color: AppColors.white, size: 22)
                         : ClipRRect(borderRadius: BorderRadius.circular(6), child: Image.memory(libraryService.settings.libraryLogo!, width: 38, height: 38, fit: BoxFit.contain)),
                   ),
                   const SizedBox(width: 12),
@@ -152,7 +152,7 @@ class _LandingScreenState extends State<LandingScreen>
                         : 'Library Management System',
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
-                      color: Colors.white,
+                      color: AppColors.white,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
@@ -164,7 +164,7 @@ class _LandingScreenState extends State<LandingScreen>
                 icon: const Icon(Icons.login, size: 16),
                 label: const Text('Sign In'),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
+                  backgroundColor: AppColors.white,
                   foregroundColor: AppColors.primary,
                   elevation: 0,
                   padding: const EdgeInsets.symmetric(
@@ -197,14 +197,14 @@ class _LandingScreenState extends State<LandingScreen>
               margin: const EdgeInsets.all(24),
               padding: const EdgeInsets.all(36),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppColors.containerSurface,
                 borderRadius: BorderRadius.circular(24),
                 border: Border.all(
-                  color: const Color(0xFFD9D9D9),
+                  color: AppColors.divider,
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.02),
+                    color: AppColors.black.withValues(alpha: 0.02),
                     blurRadius: 10,
                     offset: const Offset(0, 4),
                   ),
@@ -226,10 +226,10 @@ class _LandingScreenState extends State<LandingScreen>
                             vertical: 6,
                           ),
                           decoration: BoxDecoration(
-                            color: const Color(0xFFFBE2D9),
+                            color: AppColors.accentSurface,
                             borderRadius: BorderRadius.circular(20),
                             border: Border.all(
-                              color: const Color(0xFFF6B7A5),
+                              color: AppColors.accentBorder,
                             ),
                           ),
                           child: const Row(
@@ -238,13 +238,13 @@ class _LandingScreenState extends State<LandingScreen>
                               Icon(
                                 Icons.menu_book,
                                 size: 14,
-                                color: Color(0xFFDB482B),
+                                color: AppColors.brandDeepAccent,
                               ),
                               SizedBox(width: 6),
                               Text(
                                 'Knowledge Builds a Brighter Future',
                                 style: TextStyle(
-                                  color: Color(0xFFDB482B),
+                                  color: AppColors.brandDeepAccent,
                                   fontSize: 11,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -260,7 +260,7 @@ class _LandingScreenState extends State<LandingScreen>
                             style: TextStyle(
                               fontSize: 40,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFF171717),
+                              color: AppColors.textStrong,
                               height: 1.15,
                             ),
                             children: [
@@ -268,7 +268,7 @@ class _LandingScreenState extends State<LandingScreen>
                               TextSpan(
                                 text: 'Grow.',
                                 style: TextStyle(
-                                  color: Color(0xFFF25635),
+                                  color: AppColors.primaryAccent,
                                 ),
                               ),
                             ],
@@ -282,7 +282,7 @@ class _LandingScreenState extends State<LandingScreen>
                           'and borrow the ones you need for your studies or personal reading.',
                           style: TextStyle(
                             fontSize: 14,
-                            color: Color(0xFF666666),
+                            color: AppColors.textMuted,
                             height: 1.5,
                           ),
                         ),
@@ -297,10 +297,10 @@ class _LandingScreenState extends State<LandingScreen>
                             vertical: 6,
                           ),
                           decoration: BoxDecoration(
-                            color: const Color(0xFFFBF1E4),
+                            color: AppColors.background,
                             borderRadius: BorderRadius.circular(14),
                             border: Border.all(
-                              color: const Color(0xFFD9D9D9),
+                              color: AppColors.divider,
                             ),
                           ),
                           child: Row(
@@ -308,7 +308,7 @@ class _LandingScreenState extends State<LandingScreen>
                               const Icon(
                                 Icons.search,
                                 size: 20,
-                                color: Color(0xFFAAA898),
+                                color: AppColors.textSubtle,
                               ),
                               const SizedBox(width: 10),
                               Expanded(
@@ -320,7 +320,7 @@ class _LandingScreenState extends State<LandingScreen>
                                     hintText: 'Search books, authors, ISBN...',
                                     hintStyle: const TextStyle(
                                       fontSize: 13,
-                                      color: Color(0xFFAAA898),
+                                      color: AppColors.textSubtle,
                                     ),
                                     border: InputBorder.none,
                                     isDense: true,
@@ -343,8 +343,8 @@ class _LandingScreenState extends State<LandingScreen>
                                   FocusScope.of(context).unfocus();
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFFF25635),
-                                  foregroundColor: Colors.white,
+                                  backgroundColor: AppColors.primaryAccent,
+                                  foregroundColor: AppColors.white,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
@@ -365,14 +365,14 @@ class _LandingScreenState extends State<LandingScreen>
                               maxHeight: 240,
                             ),
                             decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: AppColors.containerSurfaceLight,
                               borderRadius: BorderRadius.circular(12),
                               border: Border.all(
-                                color: const Color(0xFFD9D9D9),
+                                color: AppColors.divider,
                               ),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withValues(alpha: 0.05),
+                                  color: AppColors.black.withValues(alpha: 0.05),
                                   blurRadius: 10,
                                   offset: const Offset(0, 4),
                                 ),
@@ -393,7 +393,7 @@ class _LandingScreenState extends State<LandingScreen>
                                             const Text(
                                               'Unable to load books.',
                                               style: TextStyle(
-                                                color: Color(0xFF666666),
+                                                color: AppColors.textMuted,
                                               ),
                                             ),
                                             TextButton(
@@ -411,7 +411,7 @@ class _LandingScreenState extends State<LandingScreen>
                                               'No matching books found.',
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
-                                                color: Color(0xFF666666),
+                                                color: AppColors.textMuted,
                                                 fontSize: 13,
                                               ),
                                             ),
@@ -428,10 +428,10 @@ class _LandingScreenState extends State<LandingScreen>
                                                 dense: true,
                                                 leading: const CircleAvatar(
                                                   backgroundColor:
-                                                      Color(0xFFFBE2D9),
+                                                      AppColors.accentSurface,
                                                   child: Icon(
                                                     Icons.menu_book,
-                                                    color: Color(0xFFF25635),
+                                                    color: AppColors.primaryAccent,
                                                   ),
                                                 ),
                                                 title: Text(
@@ -462,8 +462,8 @@ class _LandingScreenState extends State<LandingScreen>
                                                     fontWeight: FontWeight.bold,
                                                     color:
                                                         book.availableCopies > 0
-                                                            ? Colors.green
-                                                            : Colors.red,
+                                                            ? AppColors.green
+                                                            : AppColors.red,
                                                   ),
                                                 ),
                                               );
@@ -492,7 +492,7 @@ class _LandingScreenState extends State<LandingScreen>
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(
-                            color: const Color(0xFFF6B7A5),
+                            color: AppColors.accentBorder,
                           ),
                           image: const DecorationImage(
                             image: NetworkImage(
@@ -508,8 +508,8 @@ class _LandingScreenState extends State<LandingScreen>
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
                               colors: [
-                                Colors.black.withValues(alpha: 0.10),
-                                Colors.black.withValues(alpha: 0.78),
+                                AppColors.black.withValues(alpha: 0.10),
+                                AppColors.black.withValues(alpha: 0.78),
                               ],
                             ),
                           ),
@@ -522,7 +522,7 @@ class _LandingScreenState extends State<LandingScreen>
                               Icon(
                                 Icons.auto_stories,
                                 size: 38,
-                                color: Colors.white,
+                                color: AppColors.white,
                               ),
                               SizedBox(height: 12),
                               Text(
@@ -534,7 +534,7 @@ class _LandingScreenState extends State<LandingScreen>
                                 style: TextStyle(
                                   fontSize: 28,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.white,
+                                  color: AppColors.white,
                                 ),
                               ),
                               SizedBox(height: 6),
@@ -542,7 +542,7 @@ class _LandingScreenState extends State<LandingScreen>
                                 'Discover a world of knowledge',
                                 style: TextStyle(
                                   fontSize: 14,
-                                  color: Colors.white,
+                                  color: AppColors.white,
                                 ),
                               ),
                             ],
@@ -607,10 +607,10 @@ class _LandingScreenState extends State<LandingScreen>
               child: Container(
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: AppColors.containerSurface,
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
-                    color: const Color(0xFFD9D9D9),
+                    color: AppColors.divider,
                   ),
                 ),
                 child: Column(
@@ -623,7 +623,7 @@ class _LandingScreenState extends State<LandingScreen>
                           children: [
                             Icon(
                               Icons.auto_stories,
-                              color: Color(0xFFF25635),
+                              color: AppColors.primaryAccent,
                             ),
                             SizedBox(width: 8),
                             Text(
@@ -645,13 +645,13 @@ class _LandingScreenState extends State<LandingScreen>
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFFF25635),
+                              color: AppColors.primaryAccent,
                             ),
                           ),
                           label: const Icon(
                             Icons.arrow_forward,
                             size: 14,
-                            color: Color(0xFFF25635),
+                            color: AppColors.primaryAccent,
                           ),
                         ),
                       ],
@@ -678,13 +678,13 @@ class _LandingScreenState extends State<LandingScreen>
                               const Icon(
                                 Icons.cloud_off,
                                 size: 35,
-                                color: Color(0xFFAAA898),
+                                color: AppColors.textSubtle,
                               ),
                               const SizedBox(height: 10),
                               const Text(
                                 'Unable to load featured books.',
                                 style: TextStyle(
-                                  color: Color(0xFF666666),
+                                  color: AppColors.textMuted,
                                 ),
                               ),
                               TextButton.icon(
@@ -703,7 +703,7 @@ class _LandingScreenState extends State<LandingScreen>
                           child: Text(
                             'No books available yet.',
                             style: TextStyle(
-                              color: Color(0xFF666666),
+                              color: AppColors.textMuted,
                             ),
                           ),
                         ),
@@ -741,10 +741,10 @@ class _LandingScreenState extends State<LandingScreen>
               child: Container(
                 padding: const EdgeInsets.all(28),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: AppColors.containerSurface,
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
-                    color: const Color(0xFFD9D9D9),
+                    color: AppColors.divider,
                   ),
                 ),
                 child: Column(
@@ -762,7 +762,7 @@ class _LandingScreenState extends State<LandingScreen>
                       'Access library services in three simple steps.',
                       style: TextStyle(
                         fontSize: 12,
-                        color: Color(0xFF666666),
+                        color: AppColors.textMuted,
                       ),
                     ),
                     const SizedBox(height: 20),
@@ -855,7 +855,7 @@ class _LandingScreenState extends State<LandingScreen>
           const SizedBox(height: 28),
           Container(
             height: 1,
-            color: Colors.white.withValues(alpha: 0.18),
+            color: AppColors.white.withValues(alpha: 0.18),
           ),
           const SizedBox(height: 16),
           const Wrap(
@@ -865,14 +865,14 @@ class _LandingScreenState extends State<LandingScreen>
               Text(
                 '© 2026 Library Management System. All rights reserved.',
                 style: TextStyle(
-                  color: Color(0xFFF6B7A5),
+                  color: AppColors.accentBorder,
                   fontSize: 12,
                 ),
               ),
               Text(
                 'Better Readers · Stronger Communities · Brighter Futures',
                 style: TextStyle(
-                  color: Color(0xFFF6B7A5),
+                  color: AppColors.accentBorder,
                   fontSize: 12,
                 ),
               ),
@@ -894,12 +894,12 @@ class _LandingScreenState extends State<LandingScreen>
             Container(
               padding: const EdgeInsets.all(9),
               decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.12),
+                color: AppColors.white.withValues(alpha: 0.12),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: const Icon(
                 Icons.menu_book,
-                color: Colors.white,
+                color: AppColors.white,
                 size: 26,
               ),
             ),
@@ -908,7 +908,7 @@ class _LandingScreenState extends State<LandingScreen>
               child: Text(
                 'Library Management System',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: AppColors.white,
                   fontSize: 17,
                   fontWeight: FontWeight.bold,
                 ),
@@ -921,7 +921,7 @@ class _LandingScreenState extends State<LandingScreen>
           'Discover books, build knowledge, and make reading part '
           'of your everyday journey. Your next great read starts here.',
           style: TextStyle(
-            color: Color(0xFFF6B7A5),
+            color: AppColors.accentBorder,
             fontSize: 13,
             height: 1.6,
           ),
@@ -957,7 +957,7 @@ class _LandingScreenState extends State<LandingScreen>
         const Text(
           'LIBRARY SERVICES',
           style: TextStyle(
-            color: Colors.white,
+            color: AppColors.white,
             fontSize: 15,
             fontWeight: FontWeight.bold,
             letterSpacing: 0.5,
@@ -972,7 +972,7 @@ class _LandingScreenState extends State<LandingScreen>
               children: [
                 Icon(
                   service.icon,
-                  color: const Color(0xFFF6B7A5),
+                  color: AppColors.accentBorder,
                   size: 22,
                 ),
                 const SizedBox(width: 12),
@@ -983,7 +983,7 @@ class _LandingScreenState extends State<LandingScreen>
                       Text(
                         service.title,
                         style: const TextStyle(
-                          color: Colors.white,
+                          color: AppColors.white,
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                         ),
@@ -992,7 +992,7 @@ class _LandingScreenState extends State<LandingScreen>
                       Text(
                         service.description,
                         style: const TextStyle(
-                          color: Colors.white70,
+                          color: AppColors.white70,
                           fontSize: 12,
                           height: 1.4,
                         ),
@@ -1018,7 +1018,7 @@ class _LandingScreenState extends State<LandingScreen>
         Text(
           'CONTACT US',
           style: TextStyle(
-            color: Colors.white,
+            color: AppColors.white,
             fontWeight: FontWeight.bold,
             fontSize: 13,
             letterSpacing: 1,
@@ -1030,7 +1030,7 @@ class _LandingScreenState extends State<LandingScreen>
           children: [
             Icon(
               Icons.email_outlined,
-              color: Color(0xFFF6B7A5),
+              color: AppColors.accentBorder,
               size: 18,
             ),
             SizedBox(width: 10),
@@ -1038,7 +1038,7 @@ class _LandingScreenState extends State<LandingScreen>
               child: Text(
                 settings.schoolEmail,
                 style: TextStyle(
-                  color: Color(0xFFF6B7A5),
+                  color: AppColors.accentBorder,
                   fontSize: 13,
                 ),
               ),
@@ -1051,7 +1051,7 @@ class _LandingScreenState extends State<LandingScreen>
           children: [
             Icon(
               Icons.location_on_outlined,
-              color: Color(0xFFF6B7A5),
+              color: AppColors.accentBorder,
               size: 18,
             ),
             SizedBox(width: 10),
@@ -1059,7 +1059,7 @@ class _LandingScreenState extends State<LandingScreen>
               child: Text(
                 settings.schoolLocation,
                 style: TextStyle(
-                  color: Color(0xFFF6B7A5),
+                  color: AppColors.accentBorder,
                   fontSize: 13,
                   height: 1.5,
                 ),
@@ -1085,10 +1085,10 @@ class _LandingScreenState extends State<LandingScreen>
       child: Container(
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.containerSurface,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: const Color(0xFFD9D9D9),
+            color: AppColors.divider,
           ),
         ),
         child: Row(
@@ -1097,12 +1097,12 @@ class _LandingScreenState extends State<LandingScreen>
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: const Color(0xFFFBE2D9),
+                color: AppColors.accentSurface,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Icon(
                 icon,
-                color: const Color(0xFFF25635),
+                color: AppColors.primaryAccent,
                 size: 24,
               ),
             ),
@@ -1116,7 +1116,7 @@ class _LandingScreenState extends State<LandingScreen>
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF171717),
+                      color: AppColors.textStrong,
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -1124,7 +1124,7 @@ class _LandingScreenState extends State<LandingScreen>
                     desc,
                     style: const TextStyle(
                       fontSize: 12,
-                      color: Color(0xFF666666),
+                      color: AppColors.textMuted,
                       height: 1.4,
                     ),
                   ),
@@ -1181,16 +1181,16 @@ class _LandingScreenState extends State<LandingScreen>
             padding: const EdgeInsets.all(12),
 
             decoration: BoxDecoration(
-              color: const Color(0xFFFBF1E4),
+              color: AppColors.background,
               borderRadius: BorderRadius.circular(14),
               border: Border.all(
                 color: isHovered
-                    ? const Color(0xFFF6B7A5)
-                    : const Color(0xFFD9D9D9),
+                    ? AppColors.accentBorder
+                    : AppColors.divider,
               ),
               boxShadow: [
                 BoxShadow(
-                  color: const Color(0xFFF25635).withValues(
+                  color: AppColors.primaryAccent.withValues(
                     alpha: isHovered ? 0.16 : 0,
                   ),
                   blurRadius: isHovered ? 18 : 0,
@@ -1232,7 +1232,7 @@ class _LandingScreenState extends State<LandingScreen>
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 12,
-                    color: Color(0xFF171717),
+                    color: AppColors.textStrong,
                   ),
                 ),
 
@@ -1244,7 +1244,7 @@ class _LandingScreenState extends State<LandingScreen>
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                     fontSize: 11,
-                    color: Color(0xFF666666),
+                    color: AppColors.textMuted,
                   ),
                 ),
 
@@ -1263,7 +1263,7 @@ class _LandingScreenState extends State<LandingScreen>
                         ),
                         decoration: BoxDecoration(
                           color: isAvailable
-                              ? const Color(0xFFECFDF5)
+                              ? AppColors.successSurface
                               : const Color(0xFFFFFBEB),
                           borderRadius: BorderRadius.circular(6),
                         ),
@@ -1292,7 +1292,7 @@ class _LandingScreenState extends State<LandingScreen>
                         style: TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFFF25635),
+                          color: AppColors.primaryAccent,
                         ),
                       ),
                     ),
@@ -1317,8 +1317,8 @@ class _LandingScreenState extends State<LandingScreen>
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Color(0xFF514746),
-            Color(0xFFF25635),
+            AppColors.primary,
+            AppColors.primaryAccent,
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -1332,7 +1332,7 @@ class _LandingScreenState extends State<LandingScreen>
         overflow: TextOverflow.ellipsis,
         textAlign: TextAlign.center,
         style: const TextStyle(
-          color: Colors.white,
+          color: AppColors.white,
           fontWeight: FontWeight.bold,
           fontSize: 11,
         ),
@@ -1355,11 +1355,11 @@ class _LandingScreenState extends State<LandingScreen>
         children: [
           CircleAvatar(
             radius: 14,
-            backgroundColor: const Color(0xFFF25635),
+            backgroundColor: AppColors.primaryAccent,
             child: Text(
               number,
               style: const TextStyle(
-                color: Colors.white,
+                color: AppColors.white,
                 fontSize: 12,
                 fontWeight: FontWeight.bold,
               ),
@@ -1371,7 +1371,7 @@ class _LandingScreenState extends State<LandingScreen>
             style: const TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF171717),
+              color: AppColors.textStrong,
             ),
           ),
           const SizedBox(height: 4),
@@ -1379,7 +1379,7 @@ class _LandingScreenState extends State<LandingScreen>
             description,
             style: const TextStyle(
               fontSize: 11,
-              color: Color(0xFF666666),
+              color: AppColors.textMuted,
               height: 1.4,
             ),
           ),
@@ -1429,7 +1429,7 @@ class _HoverLiftState extends State<_HoverLift> {
           boxShadow: _isHovered
               ? [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.06),
+                    color: AppColors.black.withValues(alpha: 0.06),
                     blurRadius: 5,
                     offset: const Offset(0, 4),
                   ),
@@ -1439,7 +1439,7 @@ class _HoverLiftState extends State<_HoverLift> {
         foregroundDecoration: BoxDecoration(
           borderRadius: BorderRadius.circular(widget.radius),
           border: Border.all(
-            color: _isHovered ? Colors.white : Colors.transparent,
+            color: _isHovered ? AppColors.white : AppColors.transparent,
             width: 1.5,
           ),
         ),

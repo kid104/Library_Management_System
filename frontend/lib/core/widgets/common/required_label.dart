@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:library_management_system/core/constants/app_colors.dart';
 
 class RequiredLabel extends StatelessWidget {
   final String label;
@@ -20,7 +21,7 @@ class RequiredLabel extends StatelessWidget {
           TextSpan(
             text: label,
             style: const TextStyle(
-              color: Color(0xFF514746),
+              color: AppColors.primary,
               fontSize: 14,
               fontWeight: FontWeight.w600,
             ),
@@ -29,7 +30,7 @@ class RequiredLabel extends StatelessWidget {
             const TextSpan(
               text: ' *',
               style: TextStyle(
-                color: Colors.red,
+                color: AppColors.red,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -37,7 +38,7 @@ class RequiredLabel extends StatelessWidget {
             const TextSpan(
               text: ' (Optional)',
               style: TextStyle(
-                color: Colors.grey,
+                color: AppColors.grey,
                 fontSize: 12,
                 fontWeight: FontWeight.normal,
               ),

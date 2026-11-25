@@ -10,6 +10,7 @@ class LibraryNotificationModel extends LibraryNotification {
     super.createdAt,
     required super.notificationType,
     required super.isRead,
+    super.validUntil,
   });
 
   factory LibraryNotificationModel.fromJson(Map<String, dynamic> json) {
@@ -31,6 +32,7 @@ class LibraryNotificationModel extends LibraryNotification {
           json['notificationType']?.toString() ?? 'ANNOUNCEMENT',
 
       isRead: json['isRead'] == true,
+      validUntil: json['validUntil'] != null ? DateTime.tryParse(json['validUntil'].toString()) : null,
     );
   }
 }

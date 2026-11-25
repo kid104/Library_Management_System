@@ -4,6 +4,7 @@ package com.library.library_backend.Controller;
 import com.library.library_backend.Service.NotificationService;
 import com.library.library_backend.entity.Notification;
 import com.library.library_backend.entity.NotificationType;
+import com.library.library_backend.dto.CreateAnnouncementRequest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,18 +47,16 @@ public class NotificationController {
 
     // GET: Retrieve notifications for Librarian Desk
     @GetMapping("/librarian")
-    public ResponseEntity<List<Notification>> getLibrarianNotifications() {
-
-        return ResponseEntity.ok(
-                notificationService.getLibrarianNotifications());
+    public ResponseEntity<List<Notification>> getLibrarianNotifications(
+            @RequestParam(defaultValue = "") String position) {
+        return ResponseEntity.ok(notificationService.getLibrarianNotifications(position));
     }
 
     // GET: Retrieve unread notifications for Librarian Desk
     @GetMapping("/librarian/unread")
-    public ResponseEntity<List<Notification>> getUnreadLibrarianNotifications() {
-
-        return ResponseEntity.ok(
-                notificationService.getUnreadLibrarianNotifications());
+    public ResponseEntity<List<Notification>> getUnreadLibrarianNotifications(
+            @RequestParam(defaultValue = "") String position) {
+        return ResponseEntity.ok(notificationService.getUnreadLibrarianNotifications(position));
     }
 
     @GetMapping("/students/{userId}")
@@ -86,6 +85,13 @@ public ResponseEntity<List<Notification>> getUnreadStudentNotifications(
                 notificationService.createNotification(notification);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
+    }
+
+    @PostMapping("/announcements")
+    public ResponseEntity<Notification> createAnnouncement(
+            @RequestBody CreateAnnouncementRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(notificationService.createAnnouncement(request));
     }
 
     // PATCH: Mark notification as read

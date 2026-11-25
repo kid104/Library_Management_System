@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../constants/app_colors.dart';
+import 'package:library_management_system/core/constants/app_colors.dart';
 
 class AppTheme {
   static ThemeData get lightTheme {
@@ -7,10 +8,10 @@ class AppTheme {
       colorScheme: ColorScheme.fromSeed(
         seedColor: AppColors.primary,
         primary: AppColors.primary,
-        onPrimary: Colors.white,
+        onPrimary: AppColors.white,
         surface: AppColors.surface,
         onSurface: AppColors.textPrimary,
-        error: const Color(0xFFB91C1C),
+        error: AppColors.errorDark,
       ),
       scaffoldBackgroundColor: AppColors.background,
       useMaterial3: true,
@@ -22,7 +23,7 @@ class AppTheme {
       ),
       appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.primary,
-        foregroundColor: Colors.white,
+        foregroundColor: AppColors.white,
         elevation: 1,
       ),
       cardTheme: CardThemeData(
@@ -36,7 +37,7 @@ class AppTheme {
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.primaryAccent,
-          foregroundColor: Colors.white,
+          foregroundColor: AppColors.white,
           elevation: 0,
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           shape: RoundedRectangleBorder(
@@ -58,7 +59,7 @@ class AppTheme {
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: Color(0xFFB91C1C), width: 1.5),
+          borderSide: const BorderSide(color: AppColors.errorDark, width: 1.5),
         ),
       ),
     );

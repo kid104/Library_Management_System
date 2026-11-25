@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:library_management_system/core/constants/app_colors.dart';
 
 import 'package:camera_platform_interface/camera_platform_interface.dart';
 import 'package:camera_scanner/camera_scanner.dart';
@@ -27,11 +28,11 @@ class AddBookDialog extends StatefulWidget {
 }
 
 class _AddBookDialogState extends State<AddBookDialog> {
-  static const Color _blue = Color(0xFFF25635);
-  static const Color _dark = Color(0xFF514746);
-  static const Color _muted = Color(0xFF746E69);
-  static const Color _line = Color(0xFFD5D2C7);
-  static const Color _panel = Color(0xFFFBE2D9);
+  static const Color _blue = AppColors.primaryAccent;
+  static const Color _dark = AppColors.primary;
+  static const Color _muted = AppColors.textSecondary;
+  static const Color _line = AppColors.border;
+  static const Color _panel = AppColors.accentSurface;
 
   final _formKey = GlobalKey<FormState>();
   final _isbnController = TextEditingController();
@@ -232,7 +233,7 @@ class _AddBookDialogState extends State<AddBookDialog> {
 
     return Dialog(
       insetPadding: const EdgeInsets.all(16),
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.dialogBackground,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
       child: SizedBox(
         width: dialogWidth,
@@ -292,7 +293,7 @@ class _AddBookDialogState extends State<AddBookDialog> {
           Container(
             padding: const EdgeInsets.all(9),
             decoration: BoxDecoration(
-              color: const Color(0xFFFBE2D9),
+              color: AppColors.accentSurface,
               borderRadius: BorderRadius.circular(10),
             ),
             child: const Icon(Icons.library_add, color: _blue),
@@ -325,7 +326,7 @@ class _AddBookDialogState extends State<AddBookDialog> {
         Container(
           padding: const EdgeInsets.all(4),
           decoration: BoxDecoration(
-            color: const Color(0xFFF2F4F7),
+            color: AppColors.neutralSurface,
             borderRadius: BorderRadius.circular(9),
           ),
           child: Row(
@@ -357,7 +358,7 @@ class _AddBookDialogState extends State<AddBookDialog> {
             decoration: BoxDecoration(
               color: _panel,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: const Color(0xFFF6B7A5)),
+              border: Border.all(color: AppColors.accentBorder),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -413,7 +414,7 @@ class _AddBookDialogState extends State<AddBookDialog> {
                       width: 16,
                       child: CircularProgressIndicator(
                         strokeWidth: 2,
-                        color: Colors.white,
+                        color: AppColors.white,
                       ),
                     )
                   : const Icon(Icons.search),
@@ -435,7 +436,7 @@ class _AddBookDialogState extends State<AddBookDialog> {
             decoration: BoxDecoration(
               color: _metadata == null
                   ? const Color(0xFFFFF4ED)
-                  : const Color(0xFFE9F9EF),
+                  : AppColors.successSurfaceSoft,
               borderRadius: BorderRadius.circular(9),
               border: Border.all(
                 color: _metadata == null
@@ -474,7 +475,7 @@ class _AddBookDialogState extends State<AddBookDialog> {
   }) {
     return Expanded(
       child: Material(
-        color: selected ? Colors.white : Colors.transparent,
+        color: selected ? AppColors.white : AppColors.transparent,
         borderRadius: BorderRadius.circular(7),
         child: InkWell(
           borderRadius: BorderRadius.circular(7),
@@ -509,8 +510,8 @@ class _AddBookDialogState extends State<AddBookDialog> {
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: const Color(0xFFE4E7EC)),
+        color: AppColors.containerSurfaceLight,
+        border: Border.all(color: AppColors.containerBorder),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
@@ -539,7 +540,7 @@ class _AddBookDialogState extends State<AddBookDialog> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFE9F9EF),
+                    color: AppColors.successSurfaceSoft,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: const Text(
@@ -584,7 +585,7 @@ class _AddBookDialogState extends State<AddBookDialog> {
   }
 
   Widget _coverPlaceholder() => Container(
-        color: const Color(0xFFF2F4F7),
+        color: AppColors.neutralSurface,
         child: const Icon(Icons.menu_book, size: 34, color: _muted),
       );
 
@@ -751,7 +752,7 @@ class _AddBookDialogState extends State<AddBookDialog> {
             const SizedBox(height: 6),
             Text(
               _saveError!,
-              style: const TextStyle(color: Colors.red, fontSize: 12),
+              style: const TextStyle(color: AppColors.red, fontSize: 12),
             ),
           ],
           Row(
@@ -770,7 +771,7 @@ class _AddBookDialogState extends State<AddBookDialog> {
                         height: 16,
                         child: CircularProgressIndicator(
                           strokeWidth: 2,
-                          color: Colors.white,
+                          color: AppColors.white,
                         ),
                       )
                     : const Icon(Icons.save_outlined),
@@ -802,7 +803,7 @@ class _AddBookDialogState extends State<AddBookDialog> {
                 fontSize: 13,
               ),
             ),
-            if (required) const Text(' *', style: TextStyle(color: Colors.red)),
+            if (required) const Text(' *', style: TextStyle(color: AppColors.red)),
           ],
         ),
       );

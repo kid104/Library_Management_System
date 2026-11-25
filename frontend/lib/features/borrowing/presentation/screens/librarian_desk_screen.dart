@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:library_management_system/core/constants/app_colors.dart';
 
 import '../../../books/domain/entities/book.dart';
 import '../../domain/entities/borrow_record.dart';
@@ -27,11 +28,11 @@ class _LibrarianDeskScreenState extends State<LibrarianDeskScreen> {
 
   bool _isSearchingReturnBook = false;
 
-  static const Color primaryBlue = Color(0xFFF25635);
+  static const Color primaryBlue = AppColors.primaryAccent;
   static const Color successGreen = Color(0xFF4CBBA3);
-  static const Color textDark = Color(0xFF171717);
-  static const Color textMuted = Color(0xFF666666);
-  static const Color borderColor = Color(0xFFD9D9D9);
+  static const Color textDark = AppColors.textStrong;
+  static const Color textMuted = AppColors.textMuted;
+  static const Color borderColor = AppColors.divider;
 
   @override
   void dispose() {
@@ -541,7 +542,7 @@ class _LibrarianDeskScreenState extends State<LibrarianDeskScreen> {
                     key: ValueKey('book-${book.id}'),
                     margin: const EdgeInsets.only(top: 12),
                     child: _infoBox(
-                      background: const Color(0xFFFBF1E4),
+                      background: AppColors.background,
                       children: [
                         _infoRow('Title', book.title),
                         _infoRow('Author', book.author),
@@ -563,7 +564,7 @@ class _LibrarianDeskScreenState extends State<LibrarianDeskScreen> {
                               'No free copies. Only a student with a '
                               'reservation can borrow this book.',
                               style: TextStyle(
-                                color: Colors.red,
+                                color: AppColors.red,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 12,
                               ),
@@ -591,7 +592,7 @@ class _LibrarianDeskScreenState extends State<LibrarianDeskScreen> {
           ),
           const SizedBox(height: 12),
           _infoBox(
-            background: const Color(0xFFFBE2D9),
+            background: AppColors.accentSurface,
             children: [
               _infoRow(
                 'Maximum Loan Duration',
@@ -685,8 +686,8 @@ class _LibrarianDeskScreenState extends State<LibrarianDeskScreen> {
 
                 final conditionColor = switch (condition) {
                   'Good' => successGreen,
-                  'Minor damage' => Colors.orange,
-                  'Lost' => Colors.red,
+                  'Minor damage' => AppColors.orange,
+                  'Lost' => AppColors.red,
                   _ => primaryBlue,
                 };
 
@@ -695,7 +696,7 @@ class _LibrarianDeskScreenState extends State<LibrarianDeskScreen> {
                   selected: selected,
                   showCheckmark: true,
                   selectedColor: conditionColor.withValues(alpha: 0.15),
-                  backgroundColor: const Color(0xFFFBF1E4),
+                  backgroundColor: AppColors.background,
                   side: BorderSide(
                     color: selected ? conditionColor : borderColor,
                   ),
@@ -730,7 +731,7 @@ class _LibrarianDeskScreenState extends State<LibrarianDeskScreen> {
             child: record == null
                 ? _infoBox(
                     key: const ValueKey('empty-return'),
-                    background: const Color(0xFFFBF1E4),
+                    background: AppColors.background,
                     children: const [
                       Text(
                         'Search by Student ID and book title '
@@ -745,8 +746,8 @@ class _LibrarianDeskScreenState extends State<LibrarianDeskScreen> {
                 : _infoBox(
                     key: ValueKey('return-${record.id}'),
                     background: overdueDays > 0
-                        ? const Color(0xFFFEF2F2)
-                        : const Color(0xFFECFDF5),
+                        ? AppColors.errorSurface
+                        : AppColors.successSurface,
                     children: [
                       Text(
                         overdueDays > 0 ? 'Overdue Fine' : 'No Overdue Fine',
@@ -754,8 +755,8 @@ class _LibrarianDeskScreenState extends State<LibrarianDeskScreen> {
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
                           color: overdueDays > 0
-                              ? Colors.red
-                              : Colors.green.shade800,
+                              ? AppColors.red
+                              : AppColors.green,
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -765,8 +766,8 @@ class _LibrarianDeskScreenState extends State<LibrarianDeskScreen> {
                           fontSize: 28,
                           fontWeight: FontWeight.bold,
                           color: overdueDays > 0
-                              ? Colors.red
-                              : Colors.green.shade800,
+                              ? AppColors.red
+                              : AppColors.green,
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -868,7 +869,7 @@ class _LibrarianDeskScreenState extends State<LibrarianDeskScreen> {
             const TextSpan(
               text: ' *',
               style: TextStyle(
-                color: Colors.red,
+                color: AppColors.red,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -884,7 +885,7 @@ class _LibrarianDeskScreenState extends State<LibrarianDeskScreen> {
     return InputDecoration(
       hintText: hint,
       hintStyle: const TextStyle(
-        color: Color(0xFFAAA898),
+        color: AppColors.textSubtle,
         fontSize: 13,
       ),
       prefixIcon: Icon(
@@ -893,7 +894,7 @@ class _LibrarianDeskScreenState extends State<LibrarianDeskScreen> {
         color: textMuted,
       ),
       filled: true,
-      fillColor: const Color(0xFFFBF1E4),
+      fillColor: AppColors.background,
       isDense: true,
       contentPadding: const EdgeInsets.symmetric(
         horizontal: 14,
@@ -912,7 +913,7 @@ class _LibrarianDeskScreenState extends State<LibrarianDeskScreen> {
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(9),
-        borderSide: const BorderSide(color: Colors.red),
+        borderSide: const BorderSide(color: AppColors.red),
       ),
     );
   }
@@ -1025,17 +1026,17 @@ class _InteractiveDeskCardState extends State<_InteractiveDeskCard> {
           0,
         ),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.containerSurface,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: _isHovered ? Colors.white : const Color(0xFFD9D9D9),
+            color: _isHovered ? AppColors.white : AppColors.divider,
             width: 1,
           ),
           boxShadow: [
             BoxShadow(
               color: _isHovered
-                  ? Colors.black.withValues(alpha: 0.06)
-                  : Colors.black.withValues(alpha: 0.03),
+                  ? AppColors.black.withValues(alpha: 0.06)
+                  : AppColors.black.withValues(alpha: 0.03),
               blurRadius: _isHovered ? 10 : 8,
               offset: Offset(0, _isHovered ? 4 : 3),
             ),
@@ -1108,7 +1109,7 @@ class _InteractiveDeskButtonState extends State<_InteractiveDeskButton> {
                   ),
                   backgroundColor: _isHovered
                       ? widget.color.withValues(alpha: 0.06)
-                      : Colors.white,
+                      : AppColors.containerSurfaceLight,
                   padding: const EdgeInsets.symmetric(vertical: 13),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(9),
@@ -1121,9 +1122,9 @@ class _InteractiveDeskButtonState extends State<_InteractiveDeskButton> {
                 label: Text(widget.label),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: widget.color,
-                  foregroundColor: Colors.white,
+                  foregroundColor: AppColors.white,
                   disabledBackgroundColor: widget.color.withValues(alpha: 0.5),
-                  disabledForegroundColor: Colors.white,
+                  disabledForegroundColor: AppColors.white,
                   elevation: _isHovered ? 5 : 1,
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   shape: RoundedRectangleBorder(
