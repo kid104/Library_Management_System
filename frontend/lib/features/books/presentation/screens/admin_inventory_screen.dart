@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:library_management_system/core/constants/app_colors.dart';
 
@@ -451,7 +452,7 @@ class _AdminInventoryScreenState extends State<AdminInventoryScreen> {
                           )
                         : null,
                     hintText: 'Search by title, author, ISBN, category...',
-                    hintStyle: TextStyle(
+                    hintStyle: const TextStyle(
                       color: AppColors.textPrimary
                     ),
                     border: InputBorder.none,
@@ -667,177 +668,143 @@ class _AdminInventoryScreenState extends State<AdminInventoryScreen> {
                     ),
                   )
                 else
-                  FittedBox(
-                    fit: BoxFit.fill,
-                    alignment: Alignment.centerLeft,
-                    child: DataTable(
-                      headingRowColor: WidgetStateProperty.all(
-                        AppColors.background,
+        LayoutBuilder(
+    builder: (context, constraints) {
+      return SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: ConstrainedBox(
+          constraints: BoxConstraints(minWidth: constraints.maxWidth),
+          child: DataTable(
+            headingRowColor: WidgetStateProperty.all(
+              AppColors.background,
+            ),
+            headingTextStyle: const TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.bold,
+              color: AppColors.textMuted, // Or your preferred header text color
+            ),
+            dataTextStyle: const TextStyle(
+              fontSize: 12,
+              color: AppColors.black, // Or your preferred body text color
+            ),
+            columnSpacing: 16,
+            horizontalMargin: 16,
+            dataRowMinHeight: 48,
+            dataRowMaxHeight: 64,
+            columns: const [
+              DataColumn(label: Text('TITLE')),
+              DataColumn(label: Text('AUTHOR')),
+              DataColumn(label: Text('ISBN')),
+              DataColumn(label: Text('CATEGORY')),
+              DataColumn(label: Text('TOTAL')),
+              DataColumn(label: Text('AVAILABLE')),
+              DataColumn(label: Text('STATUS')),
+              DataColumn(label: Text('LOCATION')),
+              DataColumn(label: Text('ACTIONS')),
+            ],
+            rows: pageBooks.map((book) {
+              final bool isAvailable = book.availableCopies > 0;
+              final String status = isAvailable ? 'Available' : 'Unavailable';
+
+              return DataRow(
+                cells: [
+                  DataCell(
+                    ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 200),
+                      child: Text(
+                        book.title,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: primaryBlue,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                      columns: const [
-                        DataColumn(
-                          label: Text(
-                            'Title',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
+                    ),
+                  ),
+                  DataCell(
+                    ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 150),
+                      child: Text(
+                        book.author,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ),
+                  DataCell(
+                    Text(
+                      book.isbn,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        fontFamily: 'monospace',
+                      ),
+                    ),
+                  ),
+                  DataCell(Text(book.category)),
+                  DataCell(Text(book.totalCopies.toString())),
+                  DataCell(Text(book.availableCopies.toString())),
+                  DataCell(
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 9,
+                        vertical: 5,
+                      ),
+                      decoration: BoxDecoration(
+                        color: isAvailable
+                            ? const Color(0xFFDCFCE7)
+                            : const Color(0xFFFEE2E2),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Text(
+                        status,
+                        style: TextStyle(
+                          color: isAvailable
+                              ? const Color(0xFF166534)
+                              : AppColors.errorDark,
+                          fontSize: 11,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                  DataCell(Text(book.location)),
+                  DataCell(
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          tooltip: 'Edit book',
+                          iconSize: 18,
+                          constraints: const BoxConstraints(),
+                          padding: const EdgeInsets.all(6),
+                          onPressed: () => _editBook(book),
+                          icon: const Icon(
+                            Icons.edit_outlined,
+                            color: primaryBlue,
                           ),
                         ),
-                        DataColumn(
-                          label: Text(
-                            'Author',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        DataColumn(
-                          label: Text(
-                            'ISBN',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        DataColumn(
-                          label: Text(
-                            'Category',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        DataColumn(
-                          label: Text(
-                            'Total',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        DataColumn(
-                          label: Text(
-                            'Available',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        DataColumn(
-                          label: Text(
-                            'Status',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        DataColumn(
-                          label: Text(
-                            'Location',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        DataColumn(
-                          label: Text(
-                            'Actions',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
+                        IconButton(
+                          tooltip: 'Delete book',
+                          iconSize: 18,
+                          constraints: const BoxConstraints(),
+                          padding: const EdgeInsets.all(6),
+                          onPressed: () => _deleteBook(book),
+                          icon: const Icon(
+                            Icons.delete_outline,
+                            color: AppColors.red,
                           ),
                         ),
                       ],
-                      columnSpacing: 12,
-                      horizontalMargin: 8,
-                      dataRowMinHeight: 48,
-                      dataRowMaxHeight: 64,
-                      rows: pageBooks.map((book) {
-                        final bool isAvailable = book.availableCopies > 0;
-
-                        final String status =
-                            isAvailable ? 'Available' : 'Unavailable';
-
-                        return DataRow(
-                          cells: [
-                            DataCell(
-                              Text(
-                                book.title,
-                                style: const TextStyle(
-                                  color: primaryBlue,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                            DataCell(Text(book.author)),
-                            DataCell(
-                              Text(
-                                book.isbn,
-                                style: const TextStyle(
-                                  fontFamily: 'monospace',
-                                ),
-                              ),
-                            ),
-                            DataCell(Text(book.category)),
-                            DataCell(
-                              Text(book.totalCopies.toString()),
-                            ),
-                            DataCell(
-                              Text(book.availableCopies.toString()),
-                            ),
-                            DataCell(
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 8,
-                                  vertical: 3,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: isAvailable
-                                      ? const Color(0xFFDCFCE7)
-                                      : const Color(0xFFFEE2E2),
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: Text(
-                                  status,
-                                  style: TextStyle(
-                                    color: isAvailable
-                                        ? const Color(0xFF166534)
-                                        : AppColors.errorDark,
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            DataCell(Text(book.location)),
-                            DataCell(
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  IconButton(
-                                    tooltip: 'Edit book',
-                                    onPressed: () => _editBook(book),
-                                    icon: const Icon(
-                                      Icons.edit_outlined,
-                                      color: primaryBlue,
-                                    ),
-                                  ),
-                                  IconButton(
-                                    tooltip: 'Delete book',
-                                    onPressed: () => _deleteBook(book),
-                                    icon: const Icon(
-                                      Icons.delete_outline,
-                                      color: AppColors.red,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        );
-                      }).toList(),
                     ),
                   ),
+                ],
+              );
+            }).toList(),
+          ),
+        ),
+      );
+    },
+  ),
                 if (filteredBooks.isNotEmpty)
                   _buildInventoryPagination(
                     currentPage: safeInventoryPage,

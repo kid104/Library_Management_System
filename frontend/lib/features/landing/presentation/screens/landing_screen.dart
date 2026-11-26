@@ -916,7 +916,7 @@ class _LandingScreenState extends State<LandingScreen>
           'Discover books, build knowledge, and make reading part '
           'of your everyday journey. Your next great read starts here.',
           style: TextStyle(
-            color: AppColors.adminText,
+            color: AppColors.password,
             fontSize: 13,
             height: 1.6,
           ),
@@ -1033,7 +1033,7 @@ class _LandingScreenState extends State<LandingScreen>
               child: Text(
                 settings.schoolEmail,
                 style: TextStyle(
-                  color: AppColors.adminText,
+                  color: AppColors.password,
                   fontSize: 13,
                 ),
               ),
@@ -1054,7 +1054,7 @@ class _LandingScreenState extends State<LandingScreen>
               child: Text(
                 settings.schoolLocation,
                 style: TextStyle(
-                  color: AppColors.adminText,
+                  color: AppColors.password,
                   fontSize: 13,
                   height: 1.5,
                 ),
